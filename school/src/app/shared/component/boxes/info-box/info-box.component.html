@@ -1,0 +1,9 @@
+<div class="shadow" [ngClass]="[boxSize+'-box']">
+    <div class="box-header appear-animate"  [ngClass]="{'box-header-settings': isSettings, 'box-header-notification': isNotification}">
+      {{title}}
+    </div>    
+ <div class="main-content appear-animate">
+  <ng-content class="box-content"></ng-content>
+ </div>
+ 
+</div>

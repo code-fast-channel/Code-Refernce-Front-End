@@ -1,0 +1,7 @@
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [cardButtons]="false" [header]="showHeader">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)" *ngIf="mainForm && !isPopulatingFormDb">
+        <holiday-basic-info [form]="mainForm" [isViewMode]="isViewMode" [initialFormValues]="initialFormValues">
+        </holiday-basic-info>
+        <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+    </form>
+</card>

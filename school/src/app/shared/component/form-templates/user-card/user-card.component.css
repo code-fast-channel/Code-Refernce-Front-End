@@ -1,0 +1,28 @@
+.user-image{
+    border-radius: 20%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #555;
+    min-width: 100px !important;
+    min-height: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
+}
+
+.user-name{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.small-size{
+    font-size: 12px;
+}
+
+.small-size mat-icon{
+    font-size: 14px;
+}
+
+p{
+    margin: 0px;
+    padding: 0px;
+}

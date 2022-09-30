@@ -1,0 +1,49 @@
+<div class="main-page-div">
+    <app-carousel [proportion]="30" [slides]="slides"></app-carousel>
+    <br><br>
+    <div class="public-quote center">
+        "Intelligence plus character that is the goal of true education."
+    </div>
+    <br><br><br><br><br><br><br><br>
+    <responsive [gap]="'0px'" [colGap]="'0px'">
+        <fancy-box fxFlex theme="theme1" icon="people">
+            <div title>
+                Certified Teachers
+            </div>
+            <div content>
+                Our teachers are professionals and certified in their own subjects. Children enjoy the classes and share
+                their doubts with their teacher.
+            </div>
+        </fancy-box>
+        <fancy-box fxFlex theme="theme2" icon="local_library">
+            <div title>
+                Special Education
+            </div>
+            <div content>
+                Education is not just limited to books, so we also aware children about outside world activities.
+            </div>
+        </fancy-box>
+        <fancy-box fxFlex theme="theme3" icon="sports_kabaddi">
+            <div title>
+                Sports
+            </div>
+            <div content>
+                Sports are equaly important as education, We keep your children active through our sports activities.
+            </div>
+        </fancy-box>
+        <fancy-box fxFlex theme="theme4" icon="remove_red_eye">
+            <div title>
+                Smart Monitoring
+            </div>
+            <div content>
+                We keep track of student performance through our smart web application. Application also helps guardians
+                to
+                track their children performance.
+            </div>
+        </fancy-box>
+    </responsive>
+    <app-admission-process></app-admission-process>
+    <guardian-reviews></guardian-reviews>
+    <app-general-school-rules></app-general-school-rules>
+    <app-what-we-offer></app-what-we-offer>
+</div>

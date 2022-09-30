@@ -1,0 +1,8 @@
+<responsive [gap]="gap" *ngFor="let row of rows">
+  <ng-container *ngFor="let column of row; let last = last">
+    <div fxFlex>
+      <div dynamicField [field]=column [group]="form"></div>
+    </div>
+    <div fxFlex *ngIf="last && (row.length % columnsPerRow != 0) && addEmptyDiv"></div>
+  </ng-container>
+</responsive>

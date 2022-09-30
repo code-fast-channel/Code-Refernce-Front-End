@@ -1,0 +1,25 @@
+.date-div{
+background-color: rgba(245, 245, 245, 0.247);
+border-style: solid;
+border-width: 0px 1px 1px 1px;
+border-radius: 5px;
+border-color: lightgray;
+}
+
+.date-label{
+    font-size: 78%;
+    padding-left: 10px;
+}
+
+.date-value{
+    padding-left: 10px;
+}
+
+.error-paragraph{
+    margin-top: -9px;
+    margin-left: 10px;
+}
+
+.input-color{
+    color: white !important;
+}

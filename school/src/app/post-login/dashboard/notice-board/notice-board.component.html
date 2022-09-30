@@ -1,0 +1,8 @@
+<card [icon]="'gradient'" [title]="'Notice Board'" [subTitle]="'Please give any message or notice for whole school.'" [bgImage]="'bg-google-phone'"
+[loading]="isLoading" [cardButtons]="false" fxFlex>
+  <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)">
+    <br>
+    <dynamic-form *ngIf="fieldsConfig" [onlyColumn]="true" [form]="mainForm" [fields]="fieldsConfig" [addEmptyDiv]="false"></dynamic-form>
+    <form-buttons *ngIf="editPermissions" [form]="mainForm"></form-buttons>
+  </form>
+</card>

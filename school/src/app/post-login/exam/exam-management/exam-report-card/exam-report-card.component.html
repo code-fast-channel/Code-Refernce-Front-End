@@ -1,0 +1,45 @@
+<div *ngIf="!isLoading" class="custom-page-mainDiv">
+    <span *ngIf="dbData" class="custom-page-header">
+        Class {{dbData[0]?._id.classId | class}} Exam results
+    </span>
+    <p>
+        <mat-radio-group aria-label="Select an option" value="all">
+            <mat-radio-button value="all" (click)="showOnlyFailed(false)">All Students</mat-radio-button>
+            <mat-radio-button value="failed" (click)="showOnlyFailed(true)">Failed in any subject</mat-radio-button>
+        </mat-radio-group>
+    </p>
+    <br>
+    <div class="section-tabs">
+        <mat-button-toggle-group #selectedSectionToggleButton="matButtonToggleGroup" [value]="sections[0]">
+            <mat-button-toggle (change)="onSectionChange($event.value)" *ngFor="let section of sections"
+                [value]="section">
+                <span class="section-name">Section {{section | masterData : 'classsections'}}</span>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <ng-container *ngIf="selectedSectionId">
+        <app-tabular-format *ngIf="isTabularReportCard" [selectedSectionId]="selectedSectionId"
+            [resultData]="resultData"></app-tabular-format>
+
+        <div *ngIf="!isTabularReportCard" class="section-details">
+            <app-panel-format [selectedSectionId]="selectedSectionId" [resultData]="resultData"></app-panel-format>
+        </div>
+        <div *ngIf="resultData.length ==0">
+            <no-record-found></no-record-found>
+        </div>
+        <br>
+        <row>
+            <div class="fill-space"></div>
+            <div>
+                    <mat-icon class="report-type-icons pointer" mat-icon-button [ngClass]="{'active-report-type': isTabularReportCard}" (click)="isTabularReportCard = true">table_chart</mat-icon>
+                    &nbsp;&nbsp;
+                    <mat-icon class="report-type-icons pointer" mat-icon-button [ngClass]="{'active-report-type': !isTabularReportCard}" (click)="isTabularReportCard = false">face</mat-icon>
+            </div>
+            <div class="fill-space"></div>
+        </row>
+        
+
+    </ng-container>
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>

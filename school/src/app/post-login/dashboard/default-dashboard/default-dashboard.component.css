@@ -1,0 +1,67 @@
+.dashboard-container{
+  padding: 25px;
+  margin: -25px;
+}
+
+.center-boxes{
+  text-align: -webkit-center;
+}
+
+.countDetails{
+  font-size: 12px;
+}
+
+.color1{
+  background-color: floralwhite;
+}
+
+.color2{
+  background-color: rgb(248, 255, 240);
+}
+
+.color3{
+  background-color: rgb(211, 236, 238);
+}
+
+.medium-box{
+  min-width: 280px;
+  width: 20%;
+}
+
+.loadingImage{
+  width: 100vw;
+  height: auto;
+  max-width: none;
+  max-height: 100vh;
+  object-fit: contain;
+}
+
+.event-box{
+  padding: 0px 8px 12px 8px;
+  background-color: royalblue;
+}
+.event-box-header{
+  background-color: royalblue;
+  padding: 8px 0px 8px 0px;
+  color: white;
+  font-size: 18px;
+  border-style: solid;
+  border-width: 0px 0px 2px 0px;
+  border-color: var(--main-color);
+}
+
+.mat-expansion-panel-header{
+  height: 35px !important;
+  border-style: none;
+  border-color: #555;
+  border-width: 0px 0px 2px 0px;
+}
+
+.description{
+  font-size: 12px;
+}
+
+.box-row-gap{
+  min-height: 50px;
+  display:inline-block;
+}

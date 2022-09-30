@@ -1,0 +1,25 @@
+.sideNavClose{
+  cursor: pointer;
+  text-align: right;
+  height: 20px;
+  background-color: white;
+}
+.sideNavClose mat-icon:hover{
+  color: var(--cross-icon-color);
+}
+
+.sideNavHeader{  
+  background-color: white;
+  height: 200px;
+  font-size: 14px;  
+  text-align: center;
+}
+.userPic{
+  zoom: 70% !important;
+}
+
+.myProfleLink{
+  width: 100%;
+  color: white;
+  background-color: var(--main-color);
+}

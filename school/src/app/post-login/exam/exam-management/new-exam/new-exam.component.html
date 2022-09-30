@@ -1,0 +1,10 @@
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [cardButtons]="false" [header]="showHeader">
+    <form [formGroup]="mainForm" (ngSubmit)="confirmSubmit($event)" *ngIf="mainForm && !isPopulatingFormDb">
+        <class-subject [examId]="changeModeId" [isViewMode]="isViewMode" [initialFormValues]="initialFormValues" [form]="mainForm" [ClassSectionWiseStudents]="ClassSectionWiseStudents">
+        </class-subject>
+        <div class="info" *ngIf="!isViewMode && changeModeId">
+            If you press below 'Update' button then it will override the result for all the subjects and all the sections and also the exam information.
+        </div>
+        <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+    </form>
+</card>

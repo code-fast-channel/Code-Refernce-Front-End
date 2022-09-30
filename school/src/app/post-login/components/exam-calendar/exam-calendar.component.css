@@ -1,0 +1,10 @@
+.mat-expansion-panel-header{
+    height: 35px !important;
+    border-style: none;
+    border-color: #555;
+    border-width: 0px 0px 2px 0px;
+}
+
+.description{
+    font-size: 12px;
+}

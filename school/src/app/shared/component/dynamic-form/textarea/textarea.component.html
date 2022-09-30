@@ -1,0 +1,11 @@
+<mat-form-field fxFlex [formGroup]="group" [appearance]="masterData.outlineFields && !field.isViewMode ? 'outline' : 'standard'"[appearance]="'outline'">
+  <mat-icon matSuffix>{{field.icon || 'comment'}}</mat-icon>
+  <mat-label>{{field.label}}<span class="requiredAsterisk" *ngIf="validators?.required">*</span></mat-label>
+  <textarea rows="5" matInput [formControlName]="field.name" [placeholder]="field.label"></textarea>
+  <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+    <mat-error *ngIf="masterData.showErrorMessages && group.get(field.name).hasError(validation.name)">
+      <error-message [validation]="validation" [lable]="field.label"></error-message>
+    </mat-error>
+  </ng-container>
+  <mat-hint *ngIf="field.hint">{{field.hint}}</mat-hint>
+</mat-form-field>

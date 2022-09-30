@@ -1,0 +1,34 @@
+<dashboard-box [icon]="'stars'" [title]="title" [bgColor]="'#900fc5'" [color]="'white'" [open]="open"
+      [bgImage]="'bg-mark'" [value]="ratingPercentage +'%'">
+      <div *ngIf="eyeButton">
+        <mat-icon class="pointer" mat-icon-button (click)="countCardViewClicked('studentRating')">visibility</mat-icon>
+      </div>
+      <div class="countDetails" fxLayout="row">
+        <div fxFlex [ngClass]="{'bold': ratingStatusCount['veryBad'] > 0}">
+          Very Bad : {{ratingStatusCount["veryBad"]}}
+        </div>
+        <div fxFlex [ngClass]="{'bold': ratingStatusCount['bad'] > 0}">
+          Bad : {{ratingStatusCount["bad"]}}
+        </div>
+        <div fxFlex [ngClass]="{'bold': ratingStatusCount['satisfied'] > 0}">
+          Satisfied : {{ratingStatusCount["satisfied"]}}
+        </div>
+      </div>
+      <hr>
+      <div class="countDetails" fxLayout="row" fxLayoutAlign="center center">
+        <div fxFlex [ngClass]="{'bold': ratingStatusCount['good'] > 0}">
+          Good : {{ratingStatusCount["good"]}}
+        </div>
+        <div fxFlex [ngClass]="{'bold': ratingStatusCount['excellent'] > 0}">
+          Excellent : {{ratingStatusCount["excellent"]}}
+        </div>
+        <div fxFlex></div>
+      </div>
+      <br>
+      <div>
+        <app-chart [chartLabels]="['Very Bad', 'Bad', 'Satisfied', 'Good', 'Excellent']" [position]="'top'"
+          [isPieChart]="false" [filter]="false" [title]="title" [chartColors]="chartColors" [suggestedMax]="totalStudents" [suggestedMin]="0"
+          [chartData]="[ratingStatusCount['veryBad'], ratingStatusCount['bad'], ratingStatusCount['satisfied'],ratingStatusCount['good'], ratingStatusCount['excellent']]">
+        </app-chart>
+      </div>
+    </dashboard-box>

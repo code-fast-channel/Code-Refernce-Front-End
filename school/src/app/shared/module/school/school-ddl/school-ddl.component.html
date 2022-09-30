@@ -1,0 +1,7 @@
+<mat-form-field>
+<mat-select>
+    <mat-option select (click)="schoolChanged(item.id)" *ngFor="let  item of dataSource; let idx = index" [value]="item.id">
+        {{item.fullName}}
+    </mat-option>
+</mat-select>
+</mat-form-field>

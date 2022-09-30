@@ -1,0 +1,17 @@
+<div [ngClass]="['rating'+ratingValue]" [matTooltip]="isViewMode ? ratingTooltip : ''">
+  <ng-container *ngIf="showStars">
+    <span class="stars" [ngClass]="{'pointer': !isViewMode}" mat-icon-button
+      *ngFor="let ratingId of ratingArr; index as idx" (click)="!isViewMode && onRatingClicked(idx+1)"
+      [matTooltip]="isViewMode ? '' : idx+1">
+      <mat-icon [ngClass]="'zoom-'+zoom">
+        {{ratingValue > idx ? 'star' : 'star_border'}}
+      </mat-icon>
+    </span>
+  </ng-container>
+  &nbsp;&nbsp;
+  <span *ngIf="showEmoji" class="rating-emoji" [ngClass]="'zoom-'+zoom">
+    <mat-icon [matTooltip]="ratingTooltip">
+      {{ratingEmooji}}
+    </mat-icon>
+  </span>
+</div>

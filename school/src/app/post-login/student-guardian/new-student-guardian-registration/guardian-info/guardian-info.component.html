@@ -1,0 +1,79 @@
+<card [childCard]="true" [refreshButton]="false"
+    [title]="'Guardian- '+guardian.controls['basicInfo'].controls['firstName']?.value + ' ' + guardian.controls['basicInfo'].controls['lastName']?.value"
+    [subTitle]="guardianSubTitle" [open]="guardian.controls['_id'].value['$oid'] === focusId">
+    <ng-content></ng-content>
+    <responsive>
+        <form-profile-pic fxFlex [form]="guardian" [isViewMode]="isViewMode"></form-profile-pic>
+        <div fxFlex="2 2 auto">
+            <app-ddl-relation [form]="guardian" [isViewMode]="isViewMode"
+                [value]="initialFormValues?.guardians.length > idxGuardian && initialFormValues?.guardians[idxGuardian].relationId">
+            </app-ddl-relation>
+
+            <mat-accordion hideToggle="true" hideToggle="true" [multi]="masterData.expendMultiple">
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="guardian.controls['basicInfo']" [icon]="'account_box'">
+                                {{guardian.controls['basicInfo'].controls['firstName']?.value }} Basic Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-user-basic-info [form]="guardian.controls['basicInfo']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.guardians.length > idxGuardian && initialFormValues?.guardians[idxGuardian].basicInfo">
+                    </form-user-basic-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow" *ngIf="canSeeSensitiveInfo">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="guardian.controls['credentialInfo']" [icon]="'security'">
+                                {{guardian.controls['basicInfo'].controls['firstName']?.value }} Credential
+                                Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-user-credentials [form]="guardian.controls['credentialInfo']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.guardians.length > idxGuardian && initialFormValues?.guardians[idxGuardian].credentialInfo">
+                    </form-user-credentials>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="guardian.controls['contactInfo']" [icon]="'contact_phone'">
+                                {{guardian.controls['basicInfo'].controls['firstName']?.value }} Contact Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-contact-info [Required]="true" [form]="guardian.controls['contactInfo']"
+                        [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.guardians.length > idxGuardian && initialFormValues?.guardians[idxGuardian].contactInfo">
+                    </form-contact-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="guardian.controls['occupationInfo']" [icon]="'work_outline'">
+                                {{guardian.controls['basicInfo'].controls['firstName']?.value }} Occupation
+                                Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-occupation-info [form]="guardian.controls['occupationInfo']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.guardians.length > idxGuardian && initialFormValues?.guardians[idxGuardian].occupationInfo">
+                    </form-occupation-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="guardian.controls['governmentIds']" [icon]="'local_activity'">
+                                {{guardian.controls['basicInfo'].controls['firstName']?.value }} Government Ids
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-user-government-ids [form]="guardian.controls['governmentIds']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.guardians.length > idxGuardian && initialFormValues?.guardians[idxGuardian].governmentIds">
+                    </form-user-government-ids>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </responsive>
+</card>

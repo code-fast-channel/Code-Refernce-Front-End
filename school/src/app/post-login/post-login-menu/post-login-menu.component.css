@@ -1,0 +1,70 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li{
+  cursor: pointer !important;
+}
+
+.parentLink,
+.link{
+  display: block;
+  color: white;
+  padding: 12px ;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.parentLink:hover,
+.link:hover{
+  background-color: #222;
+  opacity: 0.9;
+}
+
+.arrows{  
+  vertical-align: middle;
+}
+.icons{
+  vertical-align: sub;
+  opacity: 0.8;
+}
+
+.openedSection{
+  background-color: #222;
+  border-style: solid;
+  border-width: 0px 4px 4px 4px;
+  border-color: var(--main-color);
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.openedParentMenu{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: var(--main-color) !important;
+  color: white;
+  opacity: 0.9 !important;
+}
+
+ul>li>ul{
+  margin-left: 0px;
+  border-width: 1px;
+  border-color: whitesmoke;
+}
+
+.openedParentMenu>.mat-icon{
+  opacity: 1;
+}
+.activeMenu,
+.activeMenu> .mat-icon{
+  color: greenyellow;
+  opacity: 1;
+}
+
+.submenuName{
+  font-size: 14px;
+}

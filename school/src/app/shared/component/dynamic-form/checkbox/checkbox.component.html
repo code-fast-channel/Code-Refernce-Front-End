@@ -1,0 +1,10 @@
+<ng-container  [formGroup]="group" >    
+  <mat-checkbox class="wrap" color="primary" [formControlName]="field.name">
+    {{field.label}}<span class="requiredAsterisk" *ngIf="validators?.required">*</span>
+  </mat-checkbox>
+  <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+    <mat-error  *ngIf="masterData.showErrorMessages && group.get(field.name).hasError(validation.name)">
+      <error-message [validation]="validation" [lable]="field.label" ></error-message>
+    </mat-error>
+  </ng-container>
+</ng-container>

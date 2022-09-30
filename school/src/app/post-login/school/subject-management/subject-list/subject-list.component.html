@@ -1,0 +1,86 @@
+<card [loading]="isLoading" [title]="'Subject List'" [subTitle]="'Manage your subject for School'"
+    (refresh)="getList()">
+    <large-screen>
+        <table class="table" matSort (matSortChange)="sortClicked($event)">
+            <thead class="thead">
+                <tr>
+                    <th class="sr">#</th>
+                    <th matRipple mat-sort-header="code">
+                            Subject Code
+                            <mat-icon>menu_book</mat-icon>
+                        </th>
+                    <th matRipple mat-sort-header="name">
+                        Subject Name
+                        <mat-icon>menu_book</mat-icon>
+                    </th>
+                    <th class="action">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" *ngFor="let subject of subjects; let idx = index">
+                    <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+                    <td>{{subject.code}}</td>
+                    <td>{{subject.name}}</td>
+                    <td class="rt">
+                        <button mat-icon-button appToolTip="'View Subject'" class="icon-view"
+                            (click)="viewClicked(subject._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Subject'" class="icon-edit"
+                            (click)="editClicked(subject._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Subject'" class="icon-delete"
+                            (click)="deleteClicked(subject._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </large-screen>
+
+    <small-screen class="default-font">
+        <ng-container *ngFor="let subject of subjects; let idx = index; let odd = odd">
+            <card [childCard]="true" [header]="false">
+                <row gap="2px">
+                    <div fxFlex="30%">
+                        <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+                    </div>
+                    <div fxFlex class="rt">
+                        <button mat-icon-button appToolTip="'View Subject'" class="big-icon-view"
+                            (click)="viewClicked(subject._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Subject'" class="big-icon-edit"
+                            (click)="editClicked(subject._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Subject'" class="big-icon-delete"
+                            (click)="deleteClicked(subject._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </row>
+                <div class="bold">
+                    <mat-icon>menu_book</mat-icon> {{subject.code}}
+                </div>
+                <br>
+                <div class="small-screen-data">
+                    {{subject.name}}
+                </div>
+            </card>
+            <br>
+        </ng-container>
+
+    </small-screen>
+
+    <no-record-found *ngIf="subjects.length ==0"></no-record-found>
+
+    <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+        [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+        (page)="pagingClicked($event)">
+    </mat-paginator>
+
+</card>

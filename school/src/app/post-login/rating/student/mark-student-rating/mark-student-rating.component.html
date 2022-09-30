@@ -1,0 +1,95 @@
+<card-bottom [form]="searchForm" #searchCard [title]="'Search student for rating'" [open]="true">
+  <card [header]="false">
+    <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+      <column [gap]="'0px'">
+        <div fxFlex>
+          <app-class-section-ddl [form]="searchForm" [Required]="true" [subjectNeeded]="true">
+          </app-class-section-ddl>
+        </div>
+        <div fxFlex>
+          <form-buttons [saveLabel]="'Search'" [form]="searchForm" [resetButtonNeeded]="false"></form-buttons>
+        </div>
+      </column>
+    </form>
+  </card>
+</card-bottom>
+
+<br><br><br><br>
+
+<responsive>
+  <div fxFlex>
+    <div *ngIf="!loading">
+      <responsive *ngIf="searchParams">
+        <div class="bold">
+            {{searchParams.subjectId | subject}}
+        </div>
+        <div>
+            Class:- {{searchParams.classId | class}}, Section:- {{searchParams.sectionId | masterData : 'classSections'}}
+          </div>
+      </responsive>
+      <table *ngIf="rating && rating.length > 0; else noRecordFound" class="table appear-animate" cellspacing=0>
+        <thead class="thead">
+          <tr>
+            <th class="sr">&nbsp;</th>
+            <th>
+              Roll No
+            </th>
+            <th>
+              Name
+            </th>
+            <th class="rt" style="padding-right: 10px;">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="rating">
+          <tr class="tr" style="border-top: 1px; border-bottom: 1px;" *ngFor="let stu of rating; let idx = index"
+            [ngClass]="'ratingStatus'+ stu.ratingStatusId">
+            <td>
+              <user-small-pic [userId]="stu.studentId"></user-small-pic>
+            </td>
+            <td style="font-size: 16px;">
+              {{stu.academicInfo.rollNo | numberData}}
+            </td>
+            <td>
+                <link-button (click)="viewAllRatingClicked(stu.studentId)">
+                <b>
+                  {{stu.basicInfo.firstName}} {{stu.basicInfo.lastName}}
+                </b>
+              </link-button>
+            </td>
+            <td class="rt">
+              <star-rating [isViewMode]="!editPermissions" [rating]="stu.ratingValue"
+                (ratingSelected)="ratingValueChanged(idx, $event)"></star-rating>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noRecordFound>
+        <no-record-found>
+          <p>
+            Please <b>search</b> the students, whoes rating you want to {{editPermissions ? 'mark' : 'view'}}.
+          </p>
+        </no-record-found>
+      </ng-template>
+      <br><br>
+      <button *ngIf="editPermissions && rating && rating.length > 0" mat-raised-button class="btn-submit padding"
+        type="button" (click)="saveRating()">
+        <mat-icon>save</mat-icon> Save Rating
+      </button>
+      <br><br><br><br>
+    </div>
+    <app-loader *ngIf="loading"></app-loader>
+  </div>
+  <div fxFlex *ngIf="rating && rating.length > 0">
+    <overall-rating-count-chart [open]="false" [eyeButton]="false" [title]="'Rating status'" [ratingStatusCount]="ratingStatusCount">
+    </overall-rating-count-chart>
+  </div>
+</responsive>
+
+<card *ngIf="isViewAllRating" [title]="'Student All Ratings'" [popUpMode]="true" [refreshButton]="false"
+  (deleteCardEvent)="isViewAllRating = false">
+  <user-small-pic cardHeader [userId]="selectedStudentId"></user-small-pic>
+  <app-student-whole-rating [studentId]="selectedStudentId">
+  </app-student-whole-rating>
+</card>

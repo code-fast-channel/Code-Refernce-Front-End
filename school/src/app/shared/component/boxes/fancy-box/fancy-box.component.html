@@ -1,0 +1,21 @@
+<div class="fancy-box" [ngStyle]="{'background-color': color}">
+    <row>
+        <div class="fill-space"></div>
+        <div class="fancy-icon">
+            <mat-icon class="box-shadow" [ngStyle]="{'color': color}">{{icon}}</mat-icon>
+        </div>
+        <div class="fill-space"></div>
+    </row>
+    <div class="fancy-box-content">
+        <div class="fancy-title center">
+            <ng-content select="[title]"></ng-content>
+        </div>
+        <div class="fancy-data center">
+            <ng-content select="[content]"></ng-content>
+        </div>
+
+        <div class="simple-data">
+            <ng-content select="[simpleContent]"></ng-content>
+        </div>
+    </div>
+</div>

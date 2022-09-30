@@ -1,0 +1,20 @@
+<card [header]="false" [childCard]="true" [loading]="isLoading" >
+<app-section [title]="sectionTitle" icon="deck">
+        <no-record-found *ngIf="schoolHolidays?.length==0"></no-record-found>
+        <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+            <mat-expansion-panel class="no-shadow" *ngFor="let holiday of schoolHolidays; let idx = index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                       <span>{{holiday.holidayDate | date :  'fullDate'}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div>
+                    <b>{{holiday.holidayName}}</b>
+                </div>
+                <div class="description">
+                    {{holiday.description}}
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+</app-section>
+</card>

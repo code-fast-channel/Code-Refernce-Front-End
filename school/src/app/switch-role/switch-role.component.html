@@ -1,0 +1,47 @@
+<div class="switchRoleDiv">
+    <row>
+        <div class="fill-space"></div>
+        <div color="primary" class="div box-shadow">
+            <div *ngIf="!allUserRoleList" class="loadingData">
+                <br>
+                <h2>Please Wait.....</h2>
+                <p>We are loading data for you</p>
+                <br>
+                <app-loader *ngIf="this.isLoading"></app-loader>
+                <br>
+            </div>
+            <card [icon]="'account_box'" [title]="'Select Role'" *ngIf="allUserRoleList"
+                [subTitle]="'Please select a role with which you want to proceed.'" [cardButtons]="false">
+                <responsive>
+                    <div>
+                        <form-profile-pic [isViewMode]="true"></form-profile-pic>
+                    </div>
+                    <div class="page-text">
+                        <br>
+                        <b>Hello! </b>{{user.basicInfo.firstName}} {{user.basicInfo.lastName}}
+                        <br>
+                        <p class="border-div">
+                            You have following roles assigned, please select one to proceed.
+                        </p>
+                        <br>
+                        <mat-radio-group fxLayout="column" [(ngModel)]="currentUserRoleId"
+                            [bmeCompareWith]="objectComparisonFunction">
+                            <mat-radio-button class="focus-button pointer" color="primary" fxFlex
+                                *ngFor="let role of user.roles" [value]="role" (click)="roleClicked(role)">
+                                {{role | userRole}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <br><br>
+                        <button class="btn-submit padding generic-buttons bounce-in-animate"
+                            *ngIf="currentUserRoleId != null" type="button" mat-raised-button (click)="proceed()">
+                            <mat-icon>power</mat-icon> Proceed
+                        </button>
+                        <br>
+                    </div>
+                </responsive>
+            </card>
+            <app-loader *ngIf="this.isLoading"></app-loader>
+        </div>
+        <div class="fill-space"></div>
+    </row>
+</div>

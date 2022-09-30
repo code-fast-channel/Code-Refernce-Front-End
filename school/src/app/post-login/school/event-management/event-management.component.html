@@ -1,0 +1,41 @@
+<responsive colGap="50px">
+    <div fxFlex="30">
+        <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" mat-raised-button
+            matTooltipShowDelay="100" class="btn" matTooltipHideDelay="100">
+            <mat-icon>group_work</mat-icon> Add New Event
+        </button>
+    </div>
+    <div fxFlex>
+        <card-bottom [form]="searchForm" #searchCard [hidden]="!showListPage" [title]="'Search Event'">
+            <card [header]="false">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+                    <form-date-range [form]="searchForm"></form-date-range>
+                    <dynamic-form [form]="searchForm" [fields]="searchConfig"></dynamic-form>
+                    <form-buttons [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()"></form-buttons>
+                </form>
+            </card>
+        </card-bottom>
+    </div>
+</responsive>
+
+<responsive>
+    <div>
+        <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" mat-raised-button
+            class="btn" appToolTip="'Go back to Event List'" matTooltipShowDelay="100" matTooltipHideDelay="100">
+            <mat-icon>keyboard_return</mat-icon> Back to Event List
+        </button>
+    </div>
+</responsive>
+<br><br>
+
+<app-new-event *ngIf="showAddChangePage || showViewPage" [changeModeId]="Id" [isViewMode]="showViewPage"
+    (onSaveSuccess)="onSaveSuccess($event)"></app-new-event>
+<app-event-list [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+    (editButtonEvent)="editButtonEvent($event)" (deleteButtonEvent)="deleteButtonEvent($event)"></app-event-list>
+
+<p>
+    <button *ngIf="showDeleteButton && showViewPage" mat-raised-button class="delete-button padding" type="button"
+        (click)="deleteEventPermanently()">
+        <mat-icon>delete_forever</mat-icon> Delete And Save
+    </button>
+</p>

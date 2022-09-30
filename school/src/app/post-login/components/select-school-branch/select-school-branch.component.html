@@ -1,0 +1,8 @@
+<mat-form-field fxFlex>
+  <mat-label></mat-label>
+  <mat-select style="text-align: center;">
+    <mat-option *ngFor="let school of schools" [value]="school._id">
+      {{school.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

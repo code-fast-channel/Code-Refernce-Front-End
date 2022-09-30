@@ -1,0 +1,94 @@
+<card [loading]="isLoading" [title]="'Role List'" [subTitle]="'Manage your role for School'"
+    (refresh)="getList()">
+    <large-screen>
+        <table class="table" matSort (matSortChange)="sortClicked($event)">
+            <thead class="thead">
+                <tr>
+                    <th class="sr">#</th>
+                    <th matRipple mat-sort-header="name">
+                        Role Name &nbsp; <mat-icon>android</mat-icon>
+                    </th>
+                    <th class="action">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" *ngFor="let role of roles; let idx = index">
+                    <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+                    <td>{{role.name}}</td>
+                    <td class="rt">
+                        <ng-container *ngIf="role._id != this.masterData.superAdminRoleId['$oid']; else superAdmin;">
+                            <button mat-icon-button appToolTip="'View Role'" class="icon-view"
+                                (click)="viewClicked(role._id)">
+                                <mat-icon mat-icon-button>visibility</mat-icon>
+                            </button>
+                            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Role'" class="icon-edit"
+                                (click)="editClicked(role._id)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <span *ngIf="! (role._id | userRole : 'isPredefined')">
+                                <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Role'"
+                                    class="icon-delete" (click)="deleteClicked(role._id)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                </button>
+                            </span>
+                        </ng-container>
+                        <ng-template #superAdmin>
+                            <p>
+                            <mat-icon>android</mat-icon>
+                        </p>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </large-screen>
+
+    <small-screen class="default-font">
+        <ng-container *ngFor="let role of roles; let idx = index; let odd = odd">
+            <card [childCard]="true" [header]="false">
+                <row gap="2px">
+                    <div fxFlex="30%">
+                        <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+                    </div>
+                    <div fxFlex class="rt">
+                        <ng-container *ngIf="role._id != this.masterData.superAdminRoleId['$oid']; else superAdmin;">
+                            <button mat-icon-button appToolTip="'View Role'" class="big-icon-view"
+                                (click)="viewClicked(role._id)">
+                                <mat-icon mat-icon-button>visibility</mat-icon>
+                            </button>
+                            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Role'"
+                                class="big-icon-edit" (click)="editClicked(role._id)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <span *ngIf="! (role._id | userRole : 'isPredefined')">
+                                <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Role'"
+                                    class="big-icon-delete" (click)="deleteClicked(role._id)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                </button>
+                            </span>
+                        </ng-container>
+                        <ng-template #superAdmin>
+                                <p>
+                                <mat-icon>android</mat-icon>
+                            </p>
+                            </ng-template>
+                    </div>
+                </row>
+                <div class="small-screen-data">
+                    {{role.name}}
+                </div>
+            </card>
+            <br>
+        </ng-container>
+
+    </small-screen>
+
+    <no-record-found *ngIf="roles.length ==0"></no-record-found>
+
+    <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+        [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+        (page)="pagingClicked($event)">
+    </mat-paginator>
+
+</card>

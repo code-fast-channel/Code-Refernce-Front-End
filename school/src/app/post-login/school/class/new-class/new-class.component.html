@@ -1,0 +1,79 @@
+<card [loading]="isLoading || isPopulatingFormDb" [title]="title" [subTitle]="subTitle" [cardButtons]="false">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)">
+        <br>
+        <class-basic-info *ngIf="!isPopulatingFormDb" [form]="mainForm.controls['basicInfo']" [isViewMode]="isViewMode"
+            [initialFormValues]="initialFormValues && initialFormValues.basicInfo">
+        </class-basic-info>
+        <br>
+        <ng-container *ngIf="!isPopulatingFormDb && this.mainForm.controls['basicInfo'].get('classSection')">
+            <div class="section-tabs">
+                <mat-button-toggle-group #selectedSectionToggleButton="matButtonToggleGroup" [value]="this.mainForm.controls['basicInfo'].get('classSection').value[0]">
+                    <mat-button-toggle
+                        *ngFor="let sectionId of this.mainForm.controls['basicInfo'].get('classSection').value;"
+                        [value]="sectionId">
+                        <span class="section-name">Section {{sectionId | masterData : 'classsections'}}</span>
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+
+            <div class="section-details">
+                <ng-container
+                    *ngFor="let sectionId of this.mainForm.controls['basicInfo'].get('classSection').value; let idxSection = index;">
+                    <div [hidden]="selectedSectionToggleButton.value != sectionId" class="appear-animate">
+                        <row *ngIf="!isViewMode">
+                            <button color="primary" mat-raised-button type="button" class="pointer rt"
+                                (click)="copyFromAnotherSectionClicked(sectionId)">
+                                <mat-icon>file_copy</mat-icon> Copy Subjects
+                            </button>
+                            <button class="addOneMoreButton" mat-raised-button type="button" value="Add Subject"
+                                (click)="addSubjectClicked(sectionId)">
+                                <mat-icon matSuffix>add</mat-icon>
+                                <mat-icon matSuffix>menu_book</mat-icon>
+                            </button>
+                        </row>
+
+                        <div>
+                            <br><br>
+                            <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+                                <ng-container *ngFor="let subject of this.mainForm['controls'].subject['controls']; let idxSubject = index;">
+                                    <mat-expansion-panel class="no-shadow"
+                                        *ngIf="this.subject.controls['sectionId']?.value == sectionId">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                <smart-div class="negative-margin" [form]="subject">
+                                                    <mat-icon>menu_book</mat-icon>
+                                                    {{this.subject.controls['subjectId']?.value | subject}}
+                                                </smart-div>
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <div class="rt" *ngIf="!isViewMode">
+                                            <mat-icon class="icon-delete" (click)="removeSubjectClicked(idxSubject)"
+                                                matSuffix>
+                                                delete_forever</mat-icon>
+                                        </div>
+                                        <class-subject-info [form]="subject" [isViewMode]="isViewMode" [sectionId]="sectionId" 
+                                        [initialFormValues]="initialFormValues?.subject.length > idxSubject && initialFormValues.subject[idxSubject]">
+                                        </class-subject-info>
+                                    </mat-expansion-panel>
+                                </ng-container>
+                            </mat-accordion>
+                        </div>
+                        <br><br>
+                        <section-fee [formArray]="mainForm.controls['sectionConfig']" [isViewMode]="isViewMode"
+                            [sectionId]="sectionId"
+                            [initialFormValues]="initialFormValues && initialFormValues.sectionConfig">
+                        </section-fee>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+        <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+    </form>
+</card>
+
+
+<card *ngIf="copyFromAnotherSection" [refreshButton]="false" [headerBorader]="false"
+    [title]="'Copy subjects from another section'" [popUpMode]="true" (deleteCardEvent)="closePopUp()">
+    <app-copy-subject [sectionId]="copyToSectionId" [mainForm]="this.mainForm" (onSuccess)="onCopyComplete($event)">
+    </app-copy-subject>
+</card>

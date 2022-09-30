@@ -1,0 +1,18 @@
+.chart-icons{
+    color: #666;
+    opacity: 0.5;
+}
+
+.active-chart{
+    border-width: 1px;
+    color: black;
+    opacity: 1;
+}
+
+.legend-icon{
+    margin-left: 50px;
+}
+
+.chartBg{
+    background-color: white !important;
+}

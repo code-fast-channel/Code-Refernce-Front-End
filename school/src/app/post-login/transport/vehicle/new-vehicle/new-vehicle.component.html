@@ -1,0 +1,49 @@
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [cardButtons]="false">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)">
+            <responsive>
+                    <div fxFlex>
+                            <app-section *ngIf="!isPopulatingFormDb" [icon]="'commute'" [title]="'Vehicle Basic Details'">
+                                <br>
+                                    <vehicle-basic-info [form]="mainForm.controls['basicInfo']" [isViewMode]="isViewMode"
+                                        [initialFormValues]="initialFormValues && initialFormValues.basicInfo">
+                                    </vehicle-basic-info>
+                                 <br><br>
+                                 <app-vehicle-route-info [form]="mainForm" [isViewMode]="isViewMode"
+                                        [initialFormValues]="initialFormValues"></app-vehicle-route-info>                                    
+                                </app-section>
+                    </div>
+                    <div fxFlex *ngIf="userAccessPolicy == 2">
+                            <app-section *ngIf="!isPopulatingFormDb" [icon]="'build'" [title]="'Vehicle Maintenance Details'">
+                                    <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+                                        <mat-expansion-panel  class="no-shadow"
+                                            *ngFor="let maintenance of this.mainForm['controls'].maintenance['controls']; let idxMaintenance = index;">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <smart-div [form]="maintenance" [badge]="idxMaintenance + 1">
+                                                        {{this.maintenance.controls['maintenanceName']?.value ? this.maintenance.controls['maintenanceName']?.value : '---------'}}
+                                                    </smart-div>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="rt" *ngIf="!isViewMode">
+                                                    <mat-icon class="icon-delete" (click)="removeMaintenanceClicked(idxMaintenance)" matSuffix>delete_forever</mat-icon>
+                                            </div>
+                                            <vehicle-maintenance-info [form]="maintenance" [isViewMode]="isViewMode"
+                                                [initialFormValues]="initialFormValues?.maintenance.length > idxMaintenance && initialFormValues.maintenance[idxMaintenance]">
+                                            </vehicle-maintenance-info>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                    <no-record-found *ngIf="this.mainForm['controls'].maintenance['controls'].length == 0"></no-record-found>
+                                    <p class="rt" *ngIf="!isViewMode && mainForm.controls['maintenance'].valid">
+                                        <button class="addOneMoreButton" mat-raised-button type="button" value="Add Maintenance"
+                                            (click)="addMaintenanceClicked()">
+                                            <mat-icon matSuffix>add</mat-icon>
+                                            <mat-icon matSuffix>build</mat-icon>
+                                        </button>
+                                    </p>
+                                </app-section>
+                    </div>
+                </responsive>
+
+        <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+    </form>
+</card>

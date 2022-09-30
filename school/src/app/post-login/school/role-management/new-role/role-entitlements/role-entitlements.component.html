@@ -1,0 +1,35 @@
+<table width="100%" border="1px" cellspacing="0" class="appear-animate menuTable box-shadow">
+    <tr>
+        <td class="mainMenuEntitlement">
+            <row [gap]="'2%'">
+                <div class="mainMenuName">
+                    <page-info [pageId]="form.get('pageId').value"></page-info>
+                </div>
+                <div fxFlex>
+                    <dynamic-form [form]="form" [fields]="fieldsConfig" [addEmptyDiv]="false"></dynamic-form>
+                </div>
+            </row>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br>
+            <ng-container *ngIf="form.get('accessTypeId').value == 2; else noAccess">
+                <ng-container *ngFor="let subPage of this.form['controls'].subPage['controls']; let idx = index; let last = last;">
+                    <sub-page-entitlement *ngIf="!isLoading" [form]="subPage" [isViewMode]="isViewMode"
+                        [pageId]="defaultEntitlement.pageId" [defaultEntitlement]="defaultEntitlement.subPage[idx]"
+                        [initialFormValues]="initialFormValues?.entitlements"></sub-page-entitlement>                    
+                        <div *ngIf="!last" class="separator"></div>
+                </ng-container>
+                <br>
+            </ng-container>
+            <ng-template #noAccess>
+                <p class="default-font jump-animate" style="padding: 0px 5px 0px 5px;">
+                    <i>
+                       <mat-icon>report</mat-icon> User having above mentioned role can't see this menu anymore.
+                    </i>
+                </p>
+            </ng-template>
+        </td>
+    </tr>
+</table>

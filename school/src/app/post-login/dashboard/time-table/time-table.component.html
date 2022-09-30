@@ -1,0 +1,65 @@
+<div class="custom-page-mainDiv">
+    <span class="custom-page-header">
+      <mat-icon>watch_later</mat-icon>  Class wise Time Table
+    </span>
+    <br><br>
+    <div>
+        <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+            <ng-container *ngFor="let cls of classes;">
+                <mat-expansion-panel class="no-shadow mycustom-panel">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <span class="tt-title">
+                                <b>{{cls.name}}</b>
+                            </span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section-tabs">
+                        <mat-button-toggle-group #selectedSectionToggleButton="matButtonToggleGroup"
+                            [value]="cls.classSection[0]">
+                            <mat-button-toggle *ngFor="let sectionId of cls.classSection;" [value]="sectionId">
+                                <span class="section-name">Section {{sectionId | masterData : 'classsections'}}</span>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+
+                    <div class="section-details">
+                        <table class="table">
+                            <thead class="thead">
+                                <tr>
+                                    <th>
+                                        <mat-icon>menu_book</mat-icon>
+                                    </th>
+                                    <th style="min-width: 100px;" *ngFor="let day of masterData.days">
+                                        <span class="blink-animate" *ngIf="day.id === today">
+                                            <mat-icon>wb_sunny</mat-icon>
+                                        </span>
+                                        {{day.fullName}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let sub of cls.subject">
+                                    <tr class="tr appear-animate"
+                                        *ngIf="sub.sectionId === selectedSectionToggleButton.value">
+                                        <td class="td bold">{{sub._id | subject}}</td>
+                                        <ng-container *ngFor="let day of masterData.days">
+                                            <td class="td" [ngClass]="{'today-tt': day.id === today}">
+                                                <ng-container *ngFor="let teachingDayId of sub.teachingDays">
+                                                    <span *ngIf="day.id === teachingDayId">
+                                                        {{sub.fromTime}} - {{sub.toTime}}
+                                                        <user-small-pic [userId]="sub.teacherId"></user-small-pic>
+                                                    </span>
+                                                </ng-container>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </mat-expansion-panel>
+            </ng-container>
+        </mat-accordion>
+    </div>
+</div>

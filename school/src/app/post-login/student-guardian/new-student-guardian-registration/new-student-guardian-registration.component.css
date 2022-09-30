@@ -1,0 +1,23 @@
+.dynamicSection{
+padding-bottom: 25px;
+margin-bottom: 20px;
+border-bottom: 0px;
+border-bottom-style: dotted;
+border-bottom-color:whitesmoke;
+}
+
+.deleteButton{
+    font-weight: bold;
+    font-size: 25px;
+    color: rgb(243, 50, 50);
+    cursor: pointer;
+}
+
+.count{
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.from-db{
+    background-color: rgba(240, 220, 80, 0.145) !important;
+}

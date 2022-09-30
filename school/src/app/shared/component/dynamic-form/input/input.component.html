@@ -1,0 +1,30 @@
+<mat-form-field fxFlex [formGroup]="group"
+  [appearance]="masterData.outlineFields && !field.isViewMode ? 'outline' : 'standard'">
+  <mat-label>{{field.label}}<span class="requiredAsterisk" *ngIf="validators?.required">*</span></mat-label>
+
+  <mat-icon *ngIf="field.inputType === 'text'" matSuffix>{{field.icon}}</mat-icon>
+  <input trim *ngIf="field.inputType === 'text'" matInput [formControlName]="field.name" (input)="onInputChange($event)"
+    [type]="field.inputType">
+
+  <mat-icon *ngIf="field.inputType === 'number'" matSuffix>{{field.icon ? field.icon : 'filter_1'}}</mat-icon>
+  <input *ngIf="field.inputType === 'number'" matInput [formControlName]="field.name" (input)="onInputChange($event)"
+    [type]="field.inputType">
+
+  <mat-icon *ngIf="field.inputType === 'email'" matSuffix>{{'email'}}</mat-icon>
+  <input trim *ngIf="field.inputType === 'email'" matInput [formControlName]="field.name"
+    (input)="onInputChange($event)" [type]="field.inputType">
+
+  <mat-icon [ngClass]="{'pointer' : !field.isViewMode}" *ngIf="field.inputType === 'password' && !field.isViewMode" matSuffix
+    (click)=" !field.isViewMode && show = !show">
+    {{show ? 'visibility' : 'visibility_off'}}</mat-icon>
+  <input *ngIf="field.inputType === 'password'" matInput [formControlName]="field.name" (input)="onInputChange($event)"
+    [type]="show ? 'text' : 'password'">
+
+  <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+    <mat-error *ngIf="masterData.showErrorMessages && group.get(field.name).hasError(validation.name)">
+      <error-message [validation]="validation" [lable]="field.label"></error-message>
+    </mat-error>
+  </ng-container>
+
+  <mat-hint *ngIf="field.hint">{{field.hint}}</mat-hint>
+</mat-form-field>

@@ -1,0 +1,32 @@
+.details-div{
+    background-color: #2222221a;
+}
+
+.fail{
+    background-color: red !important;
+    color: whitesmoke !important;
+}
+
+.not-in-use----mat-expansion-panel-spacing{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.mat-accordion .mat-expansion-panel:not(.mat-expanded), .mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){
+    margin-bottom: 2px;
+}
+
+.score-table{
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #222;
+}
+
+th{
+    padding: 10px 2px 10px 2px;
+	margin-bottom: 10px;
+	font-size: 80%;
+	color: whitesmoke;
+    background-color: #222 !important;
+}

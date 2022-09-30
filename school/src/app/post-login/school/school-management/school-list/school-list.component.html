@@ -1,0 +1,62 @@
+<card [loading]="isLoading" [title]="'School List'" [subTitle]="'Manage your school for students'"
+  (refresh)="getList()">
+<large-screen>
+  <table class="table" matSort (matSortChange)="sortClicked($event)">
+    <thead class="thead">
+      <tr>
+        <th class="sr">#</th>  
+        <th matRipple mat-sort-header="schoolFullName">
+          School Name
+          <mat-icon>business</mat-icon>
+        </th>        
+        <th class="action">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tr" *ngFor="let school of schools; let idx = index">
+        <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+        <td>{{school.schoolBasicInfo.name}}</td>
+        <td class="rt">
+          <button mat-icon-button appToolTip="'View School'" class="icon-view" (click)="viewClicked(school._id)">
+            <mat-icon mat-icon-button>visibility</mat-icon>
+          </button>
+          <button mat-icon-button appToolTip="'Edit School'" class="icon-edit" (click)="editClicked(school._id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</large-screen>
+
+<small-screen>
+  <div fxLayout="column" fxLayoutGap="5px">
+    <div fxFlex="center" *ngFor="let school of schools; let idx = index; let odd = odd" class="list-box" [ngClass]="{'alt-row': odd}">
+      <table>
+        <tr>
+          <td class="bold">#</td>
+          <td>{{ (paging.pageIndex * paging.pageSize) + idx+1}}</td>
+        </tr>
+        <tr>
+          <td class="bold">School Name</td>
+          <td>{{school.schoolBasicInfo.name}}</td>
+        </tr>
+      </table>
+      <div class="rt">
+          <button mat-icon-button appToolTip="'View School'" class="icon-view" (click)="viewClicked(school._id)">
+            <mat-icon mat-icon-button>visibility</mat-icon>
+          </button>
+          <button mat-icon-button appToolTip="'Edit School'" class="icon-edit" (click)="editClicked(school._id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+    </div>
+  </div>
+</small-screen>
+  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+              [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+              (page)="pagingClicked($event)">
+  </mat-paginator>
+
+</card>

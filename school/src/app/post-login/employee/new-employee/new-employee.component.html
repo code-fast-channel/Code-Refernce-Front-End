@@ -1,0 +1,106 @@
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [cardButtons]="false">
+  <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)">
+    <responsive *ngIf="!isPopulatingFormDb">
+      <form-profile-pic fxFlex fxLayoutAlign="end" [form]="mainForm" [isViewMode]="isViewMode">
+      </form-profile-pic>
+
+      <div fxFlex="2 2 auto">
+        <app-ddl-status [form]="mainForm" [isViewMode]="isViewMode"
+          [value]="initialFormValues && initialFormValues?.status">
+        </app-ddl-status>
+        <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+          <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <smart-div [form]="mainForm.controls['basicInfo']" [icon]="'face'">
+                  Basic Details
+                </smart-div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-user-basic-info [form]="mainForm.controls['basicInfo']" [isViewMode]="isViewMode"
+              [initialFormValues]="initialFormValues?.basicInfo">
+            </form-user-basic-info>
+            <app-ddl-role [form]="mainForm" [isViewMode]="isViewMode || !canChangeHisOwnRole"
+              [initialFormValues]="initialFormValues"></app-ddl-role>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="no-shadow" *ngIf="canSeeSensitiveInfo">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <smart-div [form]="mainForm.controls['credentialInfo']" [icon]="'security'">
+                  Credential Details
+                </smart-div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-user-credentials [form]="mainForm.controls['credentialInfo']" [isViewMode]="isViewMode"
+              [initialFormValues]="initialFormValues?.credentialInfo">
+            </form-user-credentials>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <smart-div [form]="mainForm.controls['transportInfo']" [icon]="'directions_bus'">
+                  Transport Details
+                </smart-div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-route-ddl [form]="mainForm.controls['transportInfo']" [isViewMode]="isViewMode"
+              [initialFormValues]="initialFormValues?.transportInfo">
+            </app-route-ddl>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <smart-div [form]="mainForm.controls['contactInfo']" [icon]="'contact_phone'">
+                  Contact Details
+                </smart-div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-contact-info [form]="mainForm.controls['contactInfo']" [isViewMode]="isViewMode"
+              [initialFormValues]="initialFormValues?.contactInfo" [Required]="true">
+            </form-contact-info>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <smart-div [form]="mainForm.controls['medicalInfo']" [icon]="'local_hospital'">
+                  Medical Details
+                </smart-div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-user-medical-info [form]="mainForm.controls['medicalInfo']" [isViewMode]="isViewMode"
+              [initialFormValues]="initialFormValues?.medicalInfo">
+            </form-user-medical-info>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <smart-div [form]="mainForm.controls['governmentIds']" [icon]="'local_activity'">
+                  Government Ids
+                </smart-div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-user-government-ids [form]="mainForm.controls['governmentIds']" [isViewMode]="isViewMode"
+              [initialFormValues]="initialFormValues?.governmentIds">
+            </form-user-government-ids>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <smart-div [form]="mainForm.controls['addressInfo']" [icon]="'room'">
+                  Address
+                </smart-div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-address-info [form]="this.mainForm['controls'].addressInfo"
+              [initialFormValues]="initialFormValues?.addressInfo" [isViewMode]="isViewMode">
+            </form-address-info>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </responsive>
+    <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+  </form>
+  <br>
+</card>

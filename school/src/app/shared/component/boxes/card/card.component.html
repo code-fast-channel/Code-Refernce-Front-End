@@ -1,0 +1,59 @@
+<div class="card small-shadow" [ngClass]="{'child-card': childCard, 'close bounce-in-animate bg2' : !open, 
+'card-loading-bg' : (loading && open), 
+'card-fullscreen appear-animate': fullScreen, 
+'popUp shadow': popUpMode,
+'noBorder' : noBorder
+}">
+<div *ngIf="!deleteCard">
+  <div fxLayout="row" *ngIf="header" 
+  [ngClass]="{'card-open-Header': open, 'card-close-Header' : !open, 'header-border' : headerBorader, 'fixedHeader' : popUpMode || fullScreen,
+             'child-card-open-header' : childCard && open, 'child-card-close-header' : childCard && !open}">
+    <div class="header-title" [ngClass]="{'bounce-in-animate': open}" 
+    (click)="cardButtons && openCloseButton && !fullScreen && toggleCard()">
+      <span [ngClass]="[childCard ? 'child-card-title' : 'title']">
+         <mat-icon *ngIf="icon">{{icon}}</mat-icon> {{title}}
+      </span>
+      <div *ngIf="subTitle" fxShow.gt-xs fxHide [ngClass]="[childCard ? 'child-card-sub-Title' : 'sub-Title']">{{subTitle}}</div>
+    </div>
+    <div class="fill-space"></div>
+    <ng-content select="[cardHeader]"></ng-content>
+    <div class="fill-space"></div>   
+    <app-loader *ngIf="loading && open" [loaderType]="'spinner'"></app-loader>
+    <div class="fill-space"></div>   
+
+    <button type="button" *ngIf="cardButtons && refreshButton && !loading" mat-icon-button appToolTip="'refresh'"
+      (click)="refreshClicked($event)">
+      <mat-icon>refresh</mat-icon>
+    </button>
+
+    <button type="button" *ngIf="cardButtons && openCloseButton && !fullScreen" mat-icon-button (click)="toggleCard()">
+      <mat-icon *ngIf="open" appToolTip="'Collapse'">expand_less</mat-icon>
+      <mat-icon *ngIf="!open" appToolTip="'Expand'" class="activeButton">expand_more</mat-icon>
+    </button>
+
+    <button type="button" *ngIf="cardButtons && fullScreenButton" mat-icon-button
+      appToolTip="fullScreen ? 'Exit fullscreen' : 'open in fullscreen'"
+      (click)="toggleFullScreenClicked()">
+      <mat-icon *ngIf="!fullScreen">fullscreen</mat-icon>
+      <mat-icon *ngIf="fullScreen" class="activeButton">fullscreen_exit</mat-icon>
+    </button>
+
+    <button type="button" *ngIf="popUpMode" class="cross" mat-icon-button appToolTip="popUpMode? 'Close pop up' : 'Disappear this section'" (click)="deleteCardClicked()">
+      <mat-icon>cancel_presentation</mat-icon>
+    </button>
+    <button *ngIf="false" type="button" mat-icon-button (click)="downloadImage()">
+      <mat-icon>save_alt</mat-icon>
+    </button>
+  </div>
+  <mat-progress-bar *ngIf="loading && !open" mode="indeterminate"></mat-progress-bar>
+ 
+  <div class="card-data" *ngIf="open" [ngClass]="{'disable-pointer': loading, 'popUpContent' : popUpMode, 'card-fullscreen-content': fullScreen}">
+    <div class="card-content" [ngClass]="{'appear-animate' : masterData.formAnimation, 'card-disabled': loading}">
+    <ng-content></ng-content>
+    </div>
+    <div class="loading-content" *ngIf="loading">
+      <app-loader></app-loader>
+    </div>
+  </div>  
+</div>
+</div>

@@ -1,0 +1,29 @@
+<div>
+  <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" mat-raised-button matTooltipShowDelay="100"
+    class="btn" matTooltipHideDelay="100">
+    <mat-icon>ballot</mat-icon> Add New Class
+  </button>
+</div>
+
+<div>
+  <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" mat-raised-button class="btn"
+    appToolTip="'Go back to Class List'" matTooltipShowDelay="100" matTooltipHideDelay="100">
+    <mat-icon>keyboard_return</mat-icon> Back to Class List
+  </button>
+</div>
+<br><br>
+
+<div>
+<app-new-class *ngIf="showAddChangePage || showViewPage" [changeModeId]="Id" [isViewMode]="showViewPage"
+  (onSaveSuccess)="onSaveSuccess($event)"></app-new-class>
+</div>
+<app-class-list [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+  (editButtonEvent)="editButtonEvent($event)" (deleteButtonEvent)="deleteButtonEvent($event)"></app-class-list>
+
+
+<p>
+  <button *ngIf="showDeleteButton && showViewPage" mat-raised-button class="delete-button padding" type="button"
+    (click)="deleteClassPermanently()">
+    <mat-icon>delete_forever</mat-icon> Delete And Save
+  </button>
+</p>

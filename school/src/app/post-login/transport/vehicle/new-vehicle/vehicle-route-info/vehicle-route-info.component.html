@@ -1,0 +1,15 @@
+<responsive [gap]="'14%'">
+<dynamic-form *ngIf="!isLoading" fxFlex [form]="form" [fields]="fieldsConfig" [addEmptyDiv]="false"></dynamic-form>
+
+<div fxFlex>
+  <input *ngIf="this.form.get('routeId') && this.form.get('routeId').value" type="button" class="pointer"
+  (click)="ShowRouteDetails = true" value="View Route Details">
+</div>
+
+</responsive>
+
+<card [title]="'Vehicle Route Details'" [subTitle]="'View vehicle route details and stoppages list.'"
+  [refreshButton]="false" [headerBorader]="false" [popUpMode]="true" (deleteCardEvent)="ShowRouteDetails=false"
+  *ngIf="!isLoading && ShowRouteDetails">
+  <app-new-route [changeModeId]="this.form.get('routeId').value" [showHeader]=false [childCard]="true" [isViewMode]="true"></app-new-route>
+</card>

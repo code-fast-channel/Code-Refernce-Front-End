@@ -1,0 +1,41 @@
+
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [cardButtons]="false" [header]="showHeader">
+        <form [formGroup]="mainForm" (ngSubmit)="onSubmit()" *ngIf="mainForm">
+            <form-code-name [form]="mainForm" ></form-code-name>
+            <form-buttons [form]="mainForm"></form-buttons>
+        </form>
+
+        <p>
+            <b>Total quotes are:- </b>{{fliteredQuotes.length}}
+        </p>
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Auther Name
+                    </th>
+                    <th>
+                        Quote Text
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" *ngFor="let quote of fliteredQuotes; let idx = index;">
+                    <td>
+                        {{idx + 1}}
+                    </td>
+                    <td>
+                        {{quote.quoteAuthor}}
+                    </td>
+                    <td>
+                        {{quote.quoteText}}
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            
+    </card>
+

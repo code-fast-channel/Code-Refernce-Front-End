@@ -1,0 +1,22 @@
+<div *ngIf="isSuperAdmin">
+      <button type="button" *ngIf="showListPage" (click)="addNewClick()" mat-raised-button class="btn"
+          matTooltipShowDelay="100" matTooltipHideDelay="100">
+          <mat-icon>business</mat-icon> Add New School
+      </button>
+
+
+      <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" class="btn"
+          mat-raised-button appToolTip="'Go back to School List'" matTooltipShowDelay="100"
+          matTooltipHideDelay="100">
+          <mat-icon>keyboard_return</mat-icon> Back to School List
+      </button>
+  </div>
+<br><br>
+
+<app-school-list *ngIf="isSuperAdmin" [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+  (editButtonEvent)="editButtonEvent($event)"></app-school-list>
+
+  
+<app-new-school *ngIf="showAddChangePage || showViewPage || !isSuperAdmin" [changeModeId]="Id"
+[isViewMode]="showViewPage || !editPermissions" (onSaveSuccess)="onSaveSuccess($event)" 
+[isSuperAdmin]="isSuperAdmin"></app-new-school>

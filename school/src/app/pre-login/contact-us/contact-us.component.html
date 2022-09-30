@@ -1,0 +1,24 @@
+<div style="background-color: white;">
+    <app-carousel [slides]="slides" proportion="30"></app-carousel>
+    <br><br><br><br>
+    <div class="contactDiv">
+        <responsive colGap="25px">
+            <div fxFlex>
+                <div class="public-quote center">
+                    "You may be disappointed if you fail, but you’ll be doomed if you don’t try."
+                </div>
+                <br><br>
+            </div>
+            <div fxFlex>
+                <card [headerBorader]="true" [icon]="'perm_phone_msg'" [title]="'Contact Us'"
+                    [subTitle]="'Please enter your enquiry details.'" [loading]="isLoading" [cardButtons]="false">
+                    <form [formGroup]="mainForm" (ngSubmit)="isCaptchaVerified && confirmSubmit($event)">
+                        <dynamic-form [form]="mainForm" [fields]="fieldsConfig" [onlyColumn]="true"></dynamic-form>
+                        <form-buttons *ngIf="isCaptchaVerified" [form]="mainForm"></form-buttons>
+                    </form>
+                </card>
+            </div>
+        </responsive>
+    </div>
+</div>
+<app-what-we-offer></app-what-we-offer>

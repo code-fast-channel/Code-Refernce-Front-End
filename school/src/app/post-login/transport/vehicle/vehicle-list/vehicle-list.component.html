@@ -1,0 +1,127 @@
+<card [loading]="isLoading" [title]="'Vehicle List'" [subTitle]="'Manage your vehicles'"
+  (refresh)="getList()">
+  <large-screen>
+    <table class="table" matSort (matSortChange)="sortClicked($event)">
+      <thead class="thead">
+        <tr>
+          <th class="sr" colspan="2">#</th>
+          <th matRipple mat-sort-header="basicInfo.customName">
+            Custom Name
+            <mat-icon>directions_bus</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.registrationNo">
+            Registration No
+            <mat-icon>directions_bus</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.seatCapacity">
+            Seat Capacity
+            <mat-icon>airline_seat_recline_normal</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.vehicleTypeId">
+            Type<mat-icon>commute</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.fuelTypeId">
+            Fuel Type<mat-icon>local_gas_station</mat-icon>
+          </th>
+          <th class="action">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr" *ngFor="let vehicle of vehicles; let idx = index">
+          <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+          <td> </td>
+          <td>{{vehicle.basicInfo.customName}}</td>
+          <td>{{vehicle.basicInfo.registrationNo}}</td>
+          <td>{{vehicle.basicInfo.seatCapacity}}</td>
+          <td>{{vehicle.basicInfo.vehicleTypeId | masterData : 'vehicleType'}}</td>
+          <td>{{vehicle.basicInfo.fuelTypeId | masterData : 'fuelType'}}</td>
+          <td class="rt">
+            <button mat-icon-button appToolTip="'View Vehicle'" class="icon-view" (click)="viewClicked(vehicle._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Vehicle'" class="icon-edit" (click)="editClicked(vehicle._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Vehicle'" class="icon-delete"
+              (click)="deleteClicked(vehicle._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </large-screen>
+
+  <small-screen class="default-font">
+    <ng-container *ngFor="let vehicle of vehicles; let idx = index; let odd = odd">
+      <card [childCard]="true" [header]="false">
+        <row gap="2px">
+          <div fxFlex="30%">
+            <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+          </div>
+          <div fxFlex class="rt">
+            <button mat-icon-button appToolTip="'View Vehicle'" class="big-icon-view"
+              (click)="viewClicked(vehicle._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Vehicle'" class="big-icon-edit"
+              (click)="editClicked(vehicle._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Vehicle'" class="big-icon-delete"
+              (click)="deleteClicked(vehicle._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </row>
+        <br>
+        <row gap="20px">
+          <div fxFlex="60%">
+            <div>
+              <mat-icon>directions_bus</mat-icon>Custom Name
+            </div>
+            <div class="small-screen-data">
+              {{vehicle.basicInfo.customName}}
+            </div>
+            <br>
+            <div>
+              <mat-icon>directions_bus</mat-icon>Vehicle No
+            </div>
+            <div class="small-screen-data">
+              {{vehicle.basicInfo.registrationNo}}
+            </div>
+            <br>
+            <div>
+              <mat-icon>commute</mat-icon>Type
+            </div>
+            <div class="small-screen-data">
+              {{vehicle.basicInfo.vehicleTypeId | masterData : 'vehicleType'}}
+            </div>
+          </div>
+          <div>
+            <div>
+              <mat-icon>local_gas_station</mat-icon>Fuel
+            </div>
+            <div class="small-screen-data">
+              {{vehicle.basicInfo.fuelTypeId | masterData : 'fuelType'}}
+            </div>
+            <br>
+            <div>
+              <mat-icon>airline_seat_recline_normal</mat-icon>Seats
+            </div>
+            <div class="small-screen-data">
+              {{vehicle.basicInfo.seatCapacity}}
+            </div>
+          </div>
+        </row>
+      </card>
+      <br>
+    </ng-container>
+  </small-screen>
+  <no-record-found *ngIf="vehicles.length ==0"></no-record-found>
+  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+    [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions" (page)="pagingClicked($event)">
+  </mat-paginator>
+
+</card>

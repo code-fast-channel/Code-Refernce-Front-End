@@ -1,0 +1,8 @@
+<responsive gap="0px">
+  <a *ngFor="let menu of menuList" class="pointer"
+    [ngClass]="{'activeMenu small-shadow':this.router.url.includes(menu.url) && this.router.url.includes(menu.modelUrl)}"
+    [routerLink]="[{outlets:{preLoginOutlet:[menu.url]}}]" (click)="menuClicked()">
+    <mat-icon>{{menu.icon}}</mat-icon> {{menu.name}}
+  </a>
+  <div class="fill-space"></div>
+</responsive>

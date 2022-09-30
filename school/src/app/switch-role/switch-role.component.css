@@ -1,0 +1,40 @@
+.switchRoleDiv{
+    background-image: var(--main-bg-image);
+}
+
+.div{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 20px 5px 5px 5px;
+    background-color: var(--main-color);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #444;
+}
+
+.border-div{
+    padding: 10px 2px 10px 5px;
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: dimgrey;
+}
+
+.page-text{
+    font-size: 14px;
+}
+
+.focus-button{
+    padding-left: 2px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: 14px;
+}
+.focus-button:hover{
+    background-color: rgba(211, 211, 211, 0.39) !important;
+}
+
+.loadingData{
+    background-color: whitesmoke;
+    padding: 10px;
+}
