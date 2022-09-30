@@ -1,0 +1,53 @@
+<div>
+    <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+        <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <smart-div [form]="form.controls['branchBasicInfo']">
+                        <mat-icon>location_city</mat-icon> Branch Basic Details
+                    </smart-div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-code-name [form]="form.controls['branchBasicInfo']" [isViewMode]="isViewMode" [codeField]="false"
+               [Required]="true" [initialFormValues]="initialFormValues && initialFormValues?.branchBasicInfo">
+            </form-code-name>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <smart-div [form]="form.controls['branchContact']">
+                        <mat-icon>phone</mat-icon> Branch Contact Details
+                    </smart-div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-contact-info [form]="form.controls['branchContact']" [Required]="true" [isViewMode]="isViewMode"
+                [initialFormValues]="initialFormValues && initialFormValues?.branchContact">
+            </form-contact-info>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <smart-div [form]="form.controls['branchAddress']">
+                        <mat-icon>room</mat-icon> Branch Address Details
+                    </smart-div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form-address-info [form]="form.controls['branchAddress']" [isViewMode]="isViewMode"
+                [initialFormValues]="initialFormValues && initialFormValues?.branchAddress">
+            </form-address-info>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="no-shadow" *ngIf="isSuperAdmin && !isViewMode && changeModeId">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>settings</mat-icon> DB configurations
+                    </mat-panel-title>
+                </mat-expansion-panel-header>  
+                <app-loader *ngIf="isLoading"></app-loader>
+                <responsive *ngIf="!isLoading">
+                    <div>
+                        <button type="button" class="btn" (click)="setUpBranchRoles()">Setup Roles</button>
+                    </div>
+                </responsive>            
+            </mat-expansion-panel>
+    </mat-accordion>
+</div>

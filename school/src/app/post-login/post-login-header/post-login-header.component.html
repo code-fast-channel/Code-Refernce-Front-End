@@ -1,0 +1,117 @@
+<div class="schoolInfo appHeaderTitle">
+  <span *ngIf="!showSchoolBranchDropdown" class="orgName">
+    <ng-content #schoolBranchName></ng-content>
+  </span>
+  <app-select-school-branch *ngIf="showSchoolBranchDropdown"></app-select-school-branch>
+</div>
+<mat-toolbar class="fixedHeader_temp appHeader">
+  <mat-toolbar-row *ngIf="isUserLogin">
+    <span>
+      <button mat-icon-button appToolTip="'Menu'">
+        <mat-icon (click)="toggleMenu()">menu</mat-icon>
+      </button>
+    </span>
+    <span class="fill-space"></span>
+    <span class="bounce-in-animate">
+      <span fxFlex>
+        <large-screen>
+          <app-button-fullscreen></app-button-fullscreen>
+        </large-screen>
+      </span>
+      <span fxFlex>
+        <button mat-icon-button (click)="calendarClicked()">
+          <mat-icon [ngClass]="{'clicked':showCalendar}">today</mat-icon>
+        </button>
+      </span>
+      <span fxFlex *ngIf="false">
+        <button (click)="headerInfoBoxClicked('messages')" mat-icon-button appToolTip="'Messages: '+ countMessages"
+          matTooltipShowDelay="100" matTooltipHideDelay="100">
+          <mat-icon [ngClass]="{'clicked':showMessageBox}" matBadgePosition="after" matBadgeColor="warn"
+            [matBadge]="countMessages > 999 ? '1k+' : countMessages">message</mat-icon>
+        </button>
+      </span>
+      <span fxFlex *ngIf="false">
+        <button (click)="headerInfoBoxClicked('notifications')" mat-icon-button
+          appToolTip="'Notifications: '+ countNotifications" matTooltipShowDelay="100" matTooltipHideDelay="100">
+          <mat-icon [ngClass]="{'clicked':showNotificationBox}" matBadgePosition="after" matBadgeColor="warn"
+            [matBadge]="countNotifications > 999 ? '1k+' : countNotifications">notifications</mat-icon>
+        </button>
+      </span>
+      <span fxFlex>
+        <button (click)="myProfile()" mat-icon-button>
+          <user-small-pic [userId]="CurrentUserId"></user-small-pic>
+        </button>
+      </span>
+      <span fxFlex>
+        <button (click)="headerInfoBoxClicked('settings')" mat-icon-button appToolTip="'Settings'">
+          <mat-icon [ngClass]="{'clicked':showSettingsBox}">settings</mat-icon>
+        </button>
+      </span>
+      <span fxFlex>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </span>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<app-info-box [title]="'Messages'" *ngIf="isUserLogin && showMessageBox">
+  <div class="info-items">
+    Message list will show here
+  </div>
+  <mat-divider></mat-divider>
+  <div class="closeButton">
+    <button mat-button class="btn-cancel padding" type="button" (click)="showMessageBox = false">
+      <mat-icon>close</mat-icon> Close
+    </button>
+  </div>
+</app-info-box>
+<app-info-box [isNotification]="true" [title]="'Notificatios'" *ngIf="isUserLogin && showNotificationBox">
+  <div class="info-items">
+    Notifications will show here
+  </div>
+  <mat-divider></mat-divider>
+  <div class="closeButton">
+    <button mat-button class="btn-cancel padding" type="button" (click)="showNotificationBox = false">
+      <mat-icon>close</mat-icon> Close
+    </button>
+  </div>
+</app-info-box>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngIf="hasMultipleRoles" (click)="changeRole()">
+    <mat-icon>account_box</mat-icon>Change Role
+  </button>
+  <button mat-menu-item appToolTip="'Log out'" (click)="logOut()">
+    <mat-icon class="logout"></mat-icon>Log out
+  </button>
+</mat-menu>
+
+<card *ngIf="isUserLogin && showCalendar" [popUpMode]="true" [icon]="'today'" [title]="'View Calendar and Agenda'"
+  [refreshButton]="false" (deleteCardEvent)="showCalendar = false">
+  <div>
+    <agenda-calendar></agenda-calendar>
+  </div>
+</card>
+
+<card *ngIf="isUserLogin && showSettingsBox" [popUpMode]="true" [icon]="'settings'" [title]="'Settings'"
+  [refreshButton]="false" (deleteCardEvent)="showSettingsBox = false">
+  <div>
+    <app-user-settings></app-user-settings>
+    <mat-divider></mat-divider>
+    <span *ngIf="isLoading" style="margin: 5px;">
+      <app-loader></app-loader>
+    </span>
+
+    <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+      <form-buttons [form]="settingsForm" (onReset)="resetSettings()" [resetLabel]="'Restore'"
+        [resetMessage]="'Dow you want to restore the default settings?'">
+      </form-buttons>
+    </form>
+  </div>
+</card>
+
+<show-on-scroll position="120">
+    <mat-icon style="z-index: 500;" class="jump-animate top-left special-icon pointer" (click)="toggleMenu()">menu</mat-icon>
+</show-on-scroll>

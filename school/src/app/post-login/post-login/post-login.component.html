@@ -1,0 +1,40 @@
+<div class="sideNavDiv" *ngIf="isUserLogin" [hidden]="!showShideNav">
+	<row>
+		<div fxFlex="300px" class="sideNav sideMenuColors shadow">
+			<app-menu-user-profile *ngIf="!isLoading" (toggleSideMenu)="toggleSideMenu($event)"></app-menu-user-profile>
+			<br><br>
+			<app-post-login-menu *ngIf="!isLoading" (toggleSideMenu)="toggleSideMenu($event)"></app-post-login-menu>
+			<div class="loadingData" *ngIf="isLoading">
+				<h4>
+					Please Wait...
+				</h4>
+				<i>We are loading Menu for you.</i>
+				<br><br>
+				<app-loader></app-loader>
+			</div>
+			<br><br><br><br>
+		</div>
+		<div fxFlex (click)="showShideNav = false" class="closeSideNavDiv">
+		</div>
+	</row>
+</div>
+<div class="sideNavContent" [ngClass]="{'disable-pointer' : showShideNav}">
+	<post-login-header #header (toggleSideMenu)="toggleSideMenu($event)">
+		<span *ngIf="!isLoading" schoolBranchName>
+			{{currentSchoolBranchId | school : 'branch'}}
+		</span>
+	</post-login-header>
+	<div class="postLoginContent contentBgImage">
+		<div *ngIf="isLoadingPage" class="card-fullscreen loadingPage">
+			<br><br>
+			<app-loader></app-loader>
+			<br> <br>
+		</div>
+		<large-screen>
+			<br><br><br><br><br>
+		</large-screen>
+		<router-outlet [hidden]="isLoadingPage" name="postLoginOutlet">
+		</router-outlet>
+	</div>
+	<post-login-footer></post-login-footer>
+</div>

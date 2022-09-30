@@ -1,0 +1,64 @@
+ .postLoginContent{
+    background-color: var(--main-bg-color);
+    color: black;
+    padding: 20px 2% 80px 2%;
+    min-height: 80vh;
+    overflow: auto;
+  }
+    
+  .sidenavContainer{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+  }
+  
+  .sideNavContent{
+  color: var(--main-bg-color);
+  }
+  
+  .sideNavDiv{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+  }
+
+  .sideNav{
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .closeSideNavDiv{
+    background-color: #000000a1;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+  }
+
+  .sideMenuColors{
+    background-color: var(--sidemenu-color);
+    color: var(--sidemenu-text-color);
+  }
+
+  .loadingData{
+    padding: 50px 20px 50px 25px;
+  }
+
+  .loadingPage{
+    background-color: #000000b8;
+  }
+
+  .lowOpacity{
+    opacity: 0.5 !important;
+  }
+
+  .hide-overflow{
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+  }

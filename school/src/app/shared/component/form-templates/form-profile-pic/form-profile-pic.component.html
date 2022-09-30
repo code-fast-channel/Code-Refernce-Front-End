@@ -1,0 +1,18 @@
+<div class="image-div" (click)="!isViewMode && selectPic()">
+    <img *ngIf="!isLoading && !isCompressing" [src]="profilePicPath" capture="camera" accept="image/*" class="pic">
+    <div *ngIf="isLoading || isCompressing" class="pic" style="background-color: white;">
+        <br>
+        <div class="uploading-info bold">Please wait</div>
+        <br>
+        <div class="uploading-info">Org Size: {{this.orgImageSize / 1000 }} Kb</div>
+        <div class="uploading-info">Compressed Size: {{this.compressedImageSize / 1000 }} Kb</div>
+        <br>
+        <app-loader></app-loader>
+    </div>
+</div>
+<img #tempImg (load)="tempImageOnLoad()" [hidden]="true">
+<div *ngIf="!isViewMode">
+    <div>
+        <mat-icon class="pointer camera-icon" (click)="selectPic()">photo_camera</mat-icon>
+    </div>
+</div>

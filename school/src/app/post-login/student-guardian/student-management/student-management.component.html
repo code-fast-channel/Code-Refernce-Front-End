@@ -1,0 +1,43 @@
+<responsive colGap="50px">
+    <div fxFlex="30">
+        <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" class="btn"
+            mat-raised-button appToolTip="'Add new Student and Guardian'" matTooltipShowDelay="100"
+            matTooltipHideDelay="100">
+            <mat-icon>person_add</mat-icon> Add New Student and Guardian
+        </button>
+    </div>
+    <div fxFlex>
+        <card-bottom [form]="searchForm" #searchCard [hidden]="!showListPage" [title]="'Search Student'">
+            <card [header]="false">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+                    <app-class-section-ddl [form]="searchForm" [NothingRequired]="true"></app-class-section-ddl>
+                    <dynamic-form [form]="searchForm" [fields]="searchConfig"></dynamic-form>
+                    <form-buttons [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()"></form-buttons>
+                </form>
+            </card>
+        </card-bottom>
+    </div>
+</responsive>
+
+<row>
+    <div>
+        <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" mat-raised-button
+            class="btn" matTooltipShowDelay="100" matTooltipHideDelay="100">
+            <mat-icon>keyboard_return</mat-icon> Back to Student List
+        </button>
+    </div>
+    <div class="fill-space"></div>
+    <div>
+        <button type="button" *ngIf="showAddChangePage && Id" class="delete-button" mat-raised-button
+            (click)="deleteClicked(Id)">
+            <mat-icon>delete_forever</mat-icon> Delete this hierarchy
+        </button>
+    </div>
+</row>
+
+<br><br>
+
+<app-new-student-guardian-registration *ngIf="showAddChangePage || showViewPage" [changeModeId]="Id" [focusId]="focusId"
+    [isViewMode]="showViewPage" (onSaveSuccess)="onSaveSuccess($event)"></app-new-student-guardian-registration>
+<app-student-list [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+    (editButtonEvent)="editButtonEvent($event)"></app-student-list>

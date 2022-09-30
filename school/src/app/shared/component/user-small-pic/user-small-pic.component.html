@@ -1,0 +1,6 @@
+<img [ngClass]="{
+    'userSmallPic' : !isRectange, 
+    'userSmallPic-rectange' : isRectange,
+    'mediumSizePic' : isMediumSize
+}" 
+[src]="imageUrl" (click)="imageClicked()">

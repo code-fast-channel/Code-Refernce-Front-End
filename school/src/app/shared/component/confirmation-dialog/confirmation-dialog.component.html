@@ -1,0 +1,14 @@
+<mat-dialog-content>
+  <div class="confirmationDialogDiv">
+  <h2>
+     <mat-icon class="shake-animate">new_releases</mat-icon> Are you Sure!
+  </h2>
+    <p>
+      {{message}}
+    </p>
+  </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-raised-button color="warn" (click)="onYesClick()" tabindex="-1">{{confirmButtonText}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close  (click)="onNoClick()" tabindex="1">{{cancelButtonText}}</button>
+  </mat-dialog-actions>

@@ -1,0 +1,39 @@
+<mat-icon class="pointer" (click)="locateMeClicked()" >{{icon}}</mat-icon>
+
+<div *ngIf="result">
+    <h1>
+        {{result.isSuccess}}
+    </h1>
+    <div>
+        {{result.data.timestamp | date: 'full'}}
+        <br>
+        {{result.data.coords.latitude}}
+        <br>
+        {{result.data.coords.longitude}}
+    </div>
+</div>
+<!--
+<agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="2"
+      (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+    >
+      <agm-marker
+        *ngFor="let marker of markers"
+        [latitude]="marker.lat"
+        [longitude]="marker.lng"
+        [opacity]="marker.alpha"
+        [markerDraggable]="true"
+        (markerClick)="selectMarker($event)"
+      >
+      </agm-marker>
+      <agm-rectangle
+        [north]="max('lat')"
+        [east]="max('lng')"
+        [south]="min('lat')"
+        [west]="min('lng')"
+      >
+      </agm-rectangle>
+    </agm-map>
+    -->

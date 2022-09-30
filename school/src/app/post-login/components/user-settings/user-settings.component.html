@@ -1,0 +1,64 @@
+<div class="info-items">
+  <mat-icon class="pointer zoom-buttons" *ngIf="masterData.websiteZoom > 80"
+    (click)="masterData.websiteZoom = masterData.websiteZoom - 10">zoom_out</mat-icon>
+  <span class="pointer zoom-value" (click)="masterData.websiteZoom = 100">
+    Zoom <b>{{masterData.websiteZoom}}%</b>
+  </span>
+  <mat-icon class="pointer zoom-buttons" *ngIf="masterData.websiteZoom < 150"
+    (click)="masterData.websiteZoom = masterData.websiteZoom + 10">zoom_in</mat-icon>
+</div>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <row gap="10px">
+    <div fxFlex="108px">
+      <b>Background:-</b>
+    </div>
+    <mat-select fxFlex [(ngModel)]="this.masterData.websiteBgImage">
+      <ng-container *ngFor="let bgImage of masterData.bgImages; let idx = index;">
+        <br>
+        <mat-option (click)="changeBgImage()" [value]="bgImage.value">
+          <span class="bgImagePreview shadow" [ngStyle]="{'background-image' : bgImage.value}"></span>
+          {{bgImage.name}}
+        </mat-option>
+        <br>
+      </ng-container>
+    </mat-select>
+  </row>
+</div>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <input type="color" [(ngModel)]="masterData.lineChartBgColor"> Line Chart background color
+</div>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <input type="color" [(ngModel)]="masterData.websiteMainColor" (change)="changeWebsiteTheme()"> Website color
+</div>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <mat-slide-toggle color="primary" [(ngModel)]="masterData.formAnimation">Form animations</mat-slide-toggle>
+</div>
+<ng-container *ngIf="currentUserRoleId | userRole : 'isSuperAdmin'">
+  <mat-divider></mat-divider>
+  <div class="info-items">
+    <mat-slide-toggle color="primary" [(ngModel)]="masterData.showJson">Show JSON
+    </mat-slide-toggle>
+  </div>
+</ng-container>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <mat-slide-toggle color="primary" [(ngModel)]="masterData.showErrorMessages">Show error messages
+  </mat-slide-toggle>
+</div>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <mat-slide-toggle color="primary" [(ngModel)]="masterData.outlineFields">Outlined fields</mat-slide-toggle>
+</div>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <mat-slide-toggle color="primary" [(ngModel)]="masterData.expendMultiple">Expend multiple panel</mat-slide-toggle>
+</div>
+<mat-divider></mat-divider>
+<div class="info-items">
+  <mat-slide-toggle color="primary" [(ngModel)]="masterData.multipleMenuOpen">Kepp multiple menu open
+  </mat-slide-toggle>
+</div>

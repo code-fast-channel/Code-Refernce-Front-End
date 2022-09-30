@@ -1,0 +1,49 @@
+<mat-form-field *ngIf="object_type_value" fxFlex class="dropdown margin-top" [formGroup]="group"
+  [appearance]="masterData.outlineFields && !field.isViewMode ? 'outline' : 'standard'">
+  <mat-icon *ngIf="field.icon" matSuffix>{{field.icon}}</mat-icon>
+  <mat-label>{{field.label}}<span class="requiredAsterisk" *ngIf="validators?.required">*</span></mat-label>
+  <mat-select [compareWith]="objectComparisonFunction" [multiple]="field.inputType === 'multi'"
+    [placeholder]="field.label" [formControlName]="field.name" (selectionChange)="dropDownValueChange($event)">
+    <mat-option *ngIf="field.inputType !== 'multi'" [disabled]="this.field.isViewMode" class="title bg2" [value]="null">
+      <b>
+        <mat-icon *ngIf="field.icon">{{field.icon}}</mat-icon>
+      </b> Select '{{field.label}}'</mat-option>
+    <mat-divider></mat-divider>
+    <ng-container *ngFor="let item of field.options">
+      <mat-option *ngIf="item.status != 0" [disabled]="this.field.isViewMode || this.item.isDisabled" [hidden]="this.item.isHidden"
+        [value]="item._id != undefined ? item._id : item.id">
+        {{item.name}}
+      </mat-option>
+    </ng-container>
+  </mat-select>
+  <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+    <mat-error *ngIf="masterData.showErrorMessages && group.get(field.name).hasError(validation.name)">
+      <error-message [validation]="validation" [lable]="field.label"></error-message>
+    </mat-error>
+  </ng-container>
+</mat-form-field>
+
+<mat-form-field *ngIf="!object_type_value" fxFlex class="dropdown margin-top" [formGroup]="group"
+  [appearance]="masterData.outlineFields && !field.isViewMode ? 'outline' : 'standard'">
+  <mat-icon *ngIf="field.icon" matSuffix>{{field.icon}}</mat-icon>
+  <mat-label>{{field.label}}<span class="requiredAsterisk" *ngIf="validators?.required">*</span></mat-label>
+  <mat-select [multiple]="field.inputType === 'multi'" [placeholder]="field.label" [formControlName]="field.name"
+    (selectionChange)="dropDownValueChange($event)">
+    <mat-option *ngIf="field.inputType !== 'multi'" [disabled]="this.field.isViewMode" class="title bg2" [value]="null">
+      <b>
+        <mat-icon *ngIf="field.icon">{{field.icon}}</mat-icon>
+      </b> Select '{{field.label}}'</mat-option>
+    <mat-divider></mat-divider>
+    <ng-container *ngFor="let item of field.options">
+      <mat-option *ngIf="item.status != 0" [disabled]="this.field.isViewMode || this.item.isDisabled" [hidden]="this.item.isHidden"
+        [value]="item._id != undefined ? item._id : item.id">
+        {{item.name}}
+      </mat-option>
+    </ng-container>
+  </mat-select>
+  <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+    <mat-error *ngIf="masterData.showErrorMessages && group.get(field.name).hasError(validation.name)">
+      <error-message [validation]="validation" [lable]="field.label"></error-message>
+    </mat-error>
+  </ng-container>
+</mat-form-field>

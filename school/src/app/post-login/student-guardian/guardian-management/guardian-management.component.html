@@ -1,0 +1,42 @@
+<responsive colGap="50px">
+    <div fxFlex="30">
+        <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" mat-raised-button
+            class="btn" appToolTip="'Add new Student and Guardian'" matTooltipShowDelay="100" matTooltipHideDelay="100">
+            <mat-icon>person_add</mat-icon> Add New Student and Guardian
+        </button>
+    </div>
+    <div fxFlex>
+        <card-bottom [form]="searchForm" #searchCard [hidden]="!showListPage" [title]="'Search Guardian'">
+            <card [header]="false">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+                    <dynamic-form [form]="searchForm" [fields]="searchConfig"></dynamic-form>
+                    <form-buttons [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()"></form-buttons>
+                </form>
+            </card>
+        </card-bottom>
+    </div>
+</responsive>
+
+<row>
+    <div>
+        <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" class="btn"
+            mat-raised-button appToolTip="'Go back to Guardian List'" matTooltipShowDelay="100"
+            matTooltipHideDelay="100">
+            <mat-icon>keyboard_return</mat-icon> Back to Guardian List
+        </button>
+    </div>
+    <div class="fill-space"></div>
+    <div>
+        <button type="button" *ngIf="showAddChangePage && Id" appToolTip="'Delete Guardian'" class="delete-button"
+            mat-raised-button (click)="deleteClicked(Id)">
+            <mat-icon>delete_forever</mat-icon> Delete this hierarchy
+        </button>
+    </div>
+</row>
+<br><br>
+
+<app-new-student-guardian-registration *ngIf="showAddChangePage || showViewPage" [changeModeId]="Id" [focusId]="focusId"
+    [tabSelectedIndex]="1" [isViewMode]="showViewPage" (onSaveSuccess)="onSaveSuccess($event)">
+</app-new-student-guardian-registration>
+<app-guardian-list [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+    (editButtonEvent)="editButtonEvent($event)"></app-guardian-list>

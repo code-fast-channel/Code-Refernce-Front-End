@@ -1,0 +1,14 @@
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [cardButtons]="false" [header]="showHeader">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)" *ngIf="mainForm && !isPopulatingFormDb">
+        <role-basic-info [form]="mainForm" [isViewMode]="isViewMode || (changeModeId | userRole : 'isPredefined')" [initialFormValues]="initialFormValues"></role-basic-info>
+        <br>
+
+        <ng-container *ngFor="let entitlement of this.mainForm['controls'].entitlements['controls']; let idx = index;">
+            <span class="bold menu-number"># {{idx +1}}</span>
+            <app-role-entitlements [form]="entitlement" [isViewMode]="isViewMode" [defaultEntitlement]="defaultEntitlements[idx]" [initialFormValues]="initialFormValues"></app-role-entitlements>
+            <br><br><br><br>
+        </ng-container>
+
+        <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId" [resetButtonNeeded]="false"></form-buttons>
+    </form>
+</card>

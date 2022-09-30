@@ -1,0 +1,22 @@
+.mat-expansion-panel-header{
+    height: 35px !important;
+    border-style: none;
+    border-color: #555;
+    border-width: 0px 0px 2px 0px;
+}
+
+.agenda-box{
+    margin-top: 1px;
+    color: black;
+}
+
+.agenda-date{
+    font-size: 12px;
+}
+
+.note-highlight{
+    width: 100%;
+    background-color: yellow;
+    padding: 5px 0px 5px 2px;
+    font-size: 12px;
+}

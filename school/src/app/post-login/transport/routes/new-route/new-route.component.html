@@ -1,0 +1,42 @@
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [cardButtons]="false" [header]="showHeader">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)" *ngIf="!isPopulatingFormDb">
+        <responsive>
+            <div fxFlex>
+                <route-basic-info [form]="mainForm.controls['basicInfo']" [isViewMode]="isViewMode"
+                    [initialFormValues]="initialFormValues && initialFormValues.basicInfo">
+                </route-basic-info>
+            </div>
+            <div fxFlex>
+                <app-section [icon]="'traffic'" [title]="'Stoppage List'">
+                    <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+                        <mat-expansion-panel  class="no-shadow"
+                            *ngFor="let stoppage of this.mainForm['controls'].stoppage['controls']; let idxStoppage = index;">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <smart-div [form]="stoppage" [badge]="idxStoppage + 1">
+                                        {{this.stoppage.controls['stoppageName']?.value ? this.stoppage.controls['stoppageName']?.value : '---------'}}
+                                    </smart-div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="rt" *ngIf="!isViewMode">
+                                    <mat-icon class="icon-delete" matSuffix (click)="removeStoppageClicked(idxStoppage)">delete_forever</mat-icon>
+                            </div>
+                            <route-stoppage-info [form]="stoppage" [isViewMode]="isViewMode" (stoppageValueChanged)="stoppageValueChanged($event)"
+                                [initialFormValues]="initialFormValues?.stoppage?.length > idxStoppage && initialFormValues.stoppage[idxStoppage]">
+                            </route-stoppage-info>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    <p class="rt" *ngIf="!isViewMode && mainForm.controls['stoppage'].valid">
+                        <button class="addOneMoreButton" mat-raised-button type="button" value="Add Stoppage"
+                            (click)="addStoppageClicked()">
+                            <mat-icon matSuffix>add</mat-icon>
+                            <mat-icon matSuffix>traffic</mat-icon>
+                        </button>
+                    </p>
+                </app-section>
+            </div>
+        </responsive>
+
+        <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+    </form>
+</card>

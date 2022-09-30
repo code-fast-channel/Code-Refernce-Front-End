@@ -1,0 +1,18 @@
+<!--
+<img class="warn-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0GKgTh-FMftCem7wXfKWwVWVC-Mrca4pygz3C6XVquQjkmXBl&s">
+-->
+<card [childCard]="true" [header]="false">
+    <div class="warn-message">
+        <mat-icon>warning</mat-icon> Are You Sure ?
+    </div>
+    <div class="title-message jump-animate">
+        You want to reset all the "Student Rating" for current cycle.
+    </div>
+    <br><br>
+    <button *ngIf="editPermissions && !loading" class="btn-submit btn" mat-raised-button type="button" (click)="buttonClicked()">Reset Student Rating</button>
+    <app-loader *ngIf="loading"></app-loader>
+    <br>
+    <div>
+        <h4>{{resultMessage}}</h4>
+    </div>
+</card>

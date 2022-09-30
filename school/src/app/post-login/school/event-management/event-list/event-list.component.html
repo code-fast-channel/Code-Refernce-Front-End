@@ -1,0 +1,109 @@
+<card [loading]="isLoading" [title]="'Event List'" [subTitle]="'Manage your event for School'"
+    (refresh)="getList()">
+    <large-screen>
+        <table class="table" matSort (matSortChange)="sortClicked($event)">
+            <thead class="thead">
+                <tr>
+                    <th class="sr">#</th>
+                    <th matRipple mat-sort-header="eventName">
+                        Event Name
+                        <mat-icon>group_work</mat-icon>
+                    </th>
+                    <th matRipple mat-sort-header="fromDate">
+                        From Date
+                        <mat-icon>today</mat-icon>
+                    </th>
+                    <th matRipple mat-sort-header="toDate">
+                        To Date
+                        <mat-icon>today</mat-icon>
+                    </th>
+
+                    <th class="action">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" *ngFor="let event of events; let idx = index">
+                    <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+                    <td>{{event.eventName}}</td>
+                    <td>{{event.fromDate | date}}</td>
+                    <td>{{event.toDate | date}}</td>
+                    <td class="rt">
+                        <button mat-icon-button appToolTip="'View Event'" class="icon-view"
+                            (click)="viewClicked(event._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Event'" class="icon-edit"
+                            (click)="editClicked(event._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button><button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Event'"
+                            class="icon-delete" (click)="deleteClicked(event._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </large-screen>
+
+    <small-screen class="default-font">
+        <ng-container *ngFor="let event of events; let idx = index; let odd = odd;">
+            <card [childCard]="true" [header]="false">
+                <row gap="2px">
+                    <div fxFlex="30%">
+                        <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+                    </div>
+                    <div fxFlex class="rt">
+                        <button mat-icon-button appToolTip="'View Event'" class="big-icon-view"
+                            (click)="viewClicked(event._id)">
+                            <mat-icon mat-icon-button class="big-icon">visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Event'" class="big-icon-edit"
+                            (click)="editClicked(event._id)">
+                            <mat-icon class="big-icon">edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Event'"
+                            class="big-icon-delete" (click)="deleteClicked(event._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </row>
+                <br>
+                <row>
+                    <div>
+                        <div class="bold">
+                            <mat-icon>today</mat-icon> From Date
+                        </div>
+                        <div class="small-screen-data">
+                            {{event.fromDate | date}}
+                        </div>
+                    </div>
+                    <div fxFlex>
+                        <div class="bold">
+                            <mat-icon>today</mat-icon> To Date
+                        </div>
+                        <div class="small-screen-data">
+                            {{event.toDate | date}}
+                        </div>
+                    </div>
+                </row>
+                <br>
+                <div class="bold">
+                    <mat-icon>group_work</mat-icon>Event Name
+                </div>
+                <div class="small-screen-data">
+                    {{event.eventName}}
+                </div>
+            </card>
+            <br>
+        </ng-container>
+    </small-screen>
+
+    <no-record-found *ngIf="events.length ==0"></no-record-found>
+
+    <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+        [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+        (page)="pagingClicked($event)">
+    </mat-paginator>
+
+</card>

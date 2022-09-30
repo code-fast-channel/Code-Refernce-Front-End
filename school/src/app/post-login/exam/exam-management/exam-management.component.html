@@ -1,0 +1,58 @@
+<responsive colGap="50px">
+    <div fxFlex="30">
+        <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" mat-raised-button
+            matTooltipShowDelay="100" class="btn" matTooltipHideDelay="100">
+            <mat-icon>chrome_reader_mode</mat-icon> Add New Exam
+        </button>
+    </div>
+    <div fxFlex>
+        <card-bottom [form]="searchForm" #searchCard [hidden]="!showListPage" [title]="'Search Exam'">
+            <card [header]="false">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+                    <dynamic-form *ngIf="searchConfig" [form]="searchForm" [fields]="searchConfig"></dynamic-form>
+                    <form-buttons [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()"></form-buttons>
+                </form>
+            </card>
+        </card-bottom>
+    </div>
+</responsive>
+
+<responsive>
+    <div>
+        <button type="button" *ngIf="showAddChangePage || showViewPage || showReportCardPage"
+            (click)="backToListClick()" mat-raised-button class="btn" appToolTip="'Go back to Exam List'"
+            matTooltipShowDelay="100" matTooltipHideDelay="100">
+            <mat-icon>keyboard_return</mat-icon> Back to Exam List
+        </button>
+    </div>
+</responsive>
+<br><br>
+
+<div *ngIf="showAddChangePage || showViewPage">
+    <ng-container *ngIf="ClassSectionWiseStudents; else loadigImpData">
+        <app-new-exam [changeModeId]="Id" [isViewMode]="showViewPage"
+            [ClassSectionWiseStudents]="ClassSectionWiseStudents" (onSaveSuccess)="onSaveSuccess($event)">
+        </app-new-exam>
+    </ng-container>
+    <ng-template #loadigImpData>
+        <h4>Please Wait...</h4>
+        <h5>We are loading some important data.</h5>
+        <br>
+        <app-loader></app-loader>
+    </ng-template>
+</div>
+
+<div *ngIf="showReportCardPage">
+    <app-exam-report-card [isTabularReportCard]="isTabularReportCard" [examId]="Id"></app-exam-report-card>
+</div>
+
+<app-exam-list [hidden]="!showListPage" (tabularReportCardButtonEvent)="tabularReportCardButtonEvent($event)"
+    (reportCardButtonEvent)="reportCardButtonEvent($event)" (viewButtonEvent)="viewButtonEvent($event)"
+    (editButtonEvent)="editButtonEvent($event)" (deleteButtonEvent)="deleteButtonEvent($event)"></app-exam-list>
+
+<p>
+    <button *ngIf="showDeleteButton && showViewPage" mat-raised-button class="delete-button padding" type="button"
+        (click)="deleteExamPermanently()">
+        <mat-icon>delete_forever</mat-icon> Delete And Save
+    </button>
+</p>

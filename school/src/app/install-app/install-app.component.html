@@ -1,0 +1,10 @@
+<responsive *ngIf="showAddToHomeScreenButton">
+    <span class="fill-space"></span>
+    <div fxFlex style="text-align: center;">
+            <button type="button" (click)="addToHomeScreen()" mat-raised-button class="jump-animate downloadBtn">
+                    <mat-icon>cloud_download</mat-icon>Install Application<mat-icon>android</mat-icon>
+                </button>
+    </div>
+    <span class="fill-space"></span>
+</responsive>
+

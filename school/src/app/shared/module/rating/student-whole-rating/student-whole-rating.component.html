@@ -1,0 +1,48 @@
+<card-bottom [form]="searchForm" #searchCard [title]="'Search ratings'">
+    <user-small-pic cardHeader [userId]="studentId"></user-small-pic>
+    <card [header]="false">
+        <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+            <app-student-whole-rating-search [form]="searchForm"></app-student-whole-rating-search>
+            <form-buttons [topMargin]="false" [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()">
+            </form-buttons>
+        </form>
+    </card>
+</card-bottom>
+
+<large-screen>
+    <br><br>
+</large-screen>
+
+<div *ngIf="!isLoading" class="default-font">
+    <table class="table" cellspacing="0" style="width: 100%;">
+        <tbody>
+            <ng-container *ngFor="let rating of ratings; let even = even;">
+                <tr class="appear-animate tr ratingTr glossy1" [ngClass]="{'evenRow' : even}">
+                    <td class="dateRangeTd">
+                        {{rating.ratingDate | ratingDateRange}}
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <ng-container *ngFor="let sub of rating.subjects">
+                                    <td class="subjectRating">
+                                        {{sub.subjectId | subject}}
+                                        <star-rating [showEmoji]="false" [zoom]="'80'" [rating]="sub.ratingValue"
+                                            [isViewMode]="true"></star-rating>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+<no-record-found *ngIf="isNoRecordFound"></no-record-found>
+
+<p>
+    <app-loader *ngIf="isLoading"></app-loader>
+</p>
+<br><br>

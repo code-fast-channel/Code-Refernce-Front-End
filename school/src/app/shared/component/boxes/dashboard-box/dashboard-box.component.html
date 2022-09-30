@@ -1,0 +1,19 @@
+<div class="main-div bounce-in-animate" [ngClass]="{bgImage: true}">
+  <mat-card class="box" [ngClass]="{'pinned-box': pinned || !open}" [ngStyle]="{'background-color': bgColor, 'border-color': bgColor, 'color': color}">
+    <div fxLayout="row" (click)="open = !open" class="pointer">
+      <div fxFlex="14%">
+        <mat-icon class="box-icon" *ngIf="icon" [ngStyle]="{'color': !pinned}">{{icon}}</mat-icon>
+      </div>
+      <div fxFlex class="rt">
+        <div class="box-title">{{title}}</div>
+        <div class="value">{{value}}</div>
+      </div>
+    </div>
+    <mat-divider *ngIf="open"></mat-divider>
+    <div class="box-content appear-animate" *ngIf="open">
+      <br>
+      <ng-content>
+      </ng-content>
+    </div>
+  </mat-card>
+</div>

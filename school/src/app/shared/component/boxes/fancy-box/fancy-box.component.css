@@ -1,0 +1,46 @@
+.fancy-box{
+    min-height: 400px;    
+    background-color: var(--main-color);
+}
+
+.fancy-box:hover{
+    background-color: #333 !important;
+}
+
+.fancy-icon mat-icon{
+    background-color: white;
+    padding: 25px;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    font-size: 80px;
+    margin-top: -65px;
+    color: var(--main-color);
+}
+
+.fancy-title{
+    font-size: 35px !important;
+    font-style: bold;
+    color: white;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-family: cursive;
+}
+
+.center fancy-box-content{
+    margin-top: 40px;    
+}
+
+.fancy-data{
+    font-size: 18px;
+    color: whitesmoke;
+    padding: 0px 20px;
+    font-family: "Work Sans", Arial, sans-serif;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.simple-data{
+    color: whitesmoke;
+    padding: 0px 20px;
+}

@@ -1,0 +1,93 @@
+<card [loading]="loading" [title]="'Student Rating Report'" [subTitle]="'View rating report of students'"
+  [cardButtons]="false">
+  <br><br>
+  <responsive>
+    <div fxFlex>
+      <responsive>
+        <div class="fill-space"></div>
+        <div class="bold">
+          Show all students who has rating
+        </div>
+        <div class="fill-space"></div>
+      </responsive>
+      <responsive>
+        <div class="fill-space"></div>
+        <div>
+          <star-rating [zoom]="'150'" [isViewMode]="!editPermissions" [rating]="5"
+            (ratingSelected)="ratingValue = $event"></star-rating>
+        </div>
+        <div class="fill-space"></div>
+      </responsive>
+      <br>
+      <responsive *ngIf="editPermissions">
+        <div class="fill-space">&nbsp;</div>
+        <div>
+          <button fxFlex mat-raised-button class="btn-submit padding" type="button" (click)="searchRating()">
+            <mat-icon class="save-btn-icon">search</mat-icon> Search
+          </button>
+        </div>
+        <div class="fill-space">&nbsp;</div>
+      </responsive>
+    </div>
+    <div fxFlex>
+      <table class="table" *ngIf="rating" cellspacing=0>
+        <thead class="thead">
+          <tr>
+            <th class="sr" style="min-width: 30px;">#</th>
+            <th colspan="2">
+              Student Details
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr" style="border-top: 1px; border-bottom: 1px;" *ngFor="let stu of rating; let idx = index"
+            [ngClass]="'ratingStatus'+ stu.ratingStatusId">
+            <td class="bottom-border">{{idx+1}}</td>
+            <td class="bottom-border">
+              <responsive>
+                <div style="min-width: 150px;">
+                  <user-small-pic [userId]="stu.studentId"></user-small-pic>
+                  <br>
+                  <br>
+                  <link-button (click)="viewAllRatingClicked(stu.studentId)">
+                    <b>
+                      {{stu.basicInfo.firstName}} {{stu.basicInfo.lastName}}
+                    </b>
+                  </link-button>
+                </div>
+                <div style="min-width: 60px;">
+                  <b>R.No.</b> {{stu.academicInfo.rollNo | numberData}}
+                </div>
+                <div style="min-width: 100px;">
+                  <b>Class</b> {{stu.className}}
+                </div>
+              </responsive>
+            </td>
+            <td class="bottom-border">
+              <responsive>
+                <div style="min-width: 40px;">
+                  <star-rating [rating]="stu.ratingValue" [showStars]="false" [isViewMode]="true"></star-rating>
+                </div>
+                <div style="min-width: 100px;">
+                  <ul>
+                    <li *ngFor="let subjectId of stu.subjectIds">
+                      {{ subjectId | subject }}
+                    </li>
+                  </ul>
+                </div>
+              </responsive>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <no-record-found *ngIf="!rating || rating.length === 0"></no-record-found>
+    </div>
+  </responsive>
+</card>
+
+<card *ngIf="isViewAllRating" [title]="'Student All Ratings'" [popUpMode]="true" [refreshButton]="false"
+  (deleteCardEvent)="isViewAllRating = false">
+  <user-small-pic cardHeader [userId]="selectedStudentId"></user-small-pic>
+  <app-student-whole-rating [studentId]="selectedStudentId">
+  </app-student-whole-rating>
+</card>

@@ -1,0 +1,36 @@
+<dashboard-box [icon]="'emoji_people'" [title]="title" [bgColor]="'blue'" [color]="'white'" [open]="open"
+      [bgImage]="'bg-mark'" [value]="presentPercentage +'%'">
+      <div *ngIf="eyeButton">
+        <mat-icon class="pointer" mat-icon-button (click)="countCardViewClicked('studentAttendance')">visibility</mat-icon>
+      </div>
+      <div class="countDetails" fxLayout="row">
+        <div fxFlex [ngClass]="{'bold': attendanceStatusCount['pending'] > 0}">
+          Pending : {{attendanceStatusCount["pending"]}}
+        </div>
+        <div fxFlex [ngClass]="{'bold': attendanceStatusCount['present'] > 0}">
+          Present : {{attendanceStatusCount["present"]}}
+        </div>
+        <div fxFlex [ngClass]="{'bold': attendanceStatusCount['halfDay'] > 0}">
+          Half Day : {{attendanceStatusCount["halfDay"]}}
+        </div>
+      </div>
+      <hr>
+      <div class="countDetails" fxLayout="row">
+        <div fxFlex [ngClass]="{'bold': attendanceStatusCount['sick'] > 0}">
+          Sick : {{attendanceStatusCount["sick"]}}
+        </div>
+        <div fxFlex [ngClass]="{'bold': attendanceStatusCount['leave'] > 0}">
+          Leave : {{attendanceStatusCount["leave"]}}
+        </div>
+        <div fxFlex [ngClass]="{'bold': attendanceStatusCount['absent'] > 0}">
+          Absent : {{attendanceStatusCount["absent"]}}
+        </div>
+      </div>
+      <br>
+      <div>
+        <app-chart [chartLabels]="['Pending', 'Present', 'Half Day', 'Sick', 'Leave', 'Absent']" [position]="'top'"
+          [isPieChart]="false" [filter]="false" [title]="title" [suggestedMin]="0" [suggestedMax]="totalStudents"
+          [chartData]="[attendanceStatusCount['pending'], attendanceStatusCount['present'], attendanceStatusCount['halfDay'],attendanceStatusCount['sick'], attendanceStatusCount['leave'], attendanceStatusCount['absent']]">
+        </app-chart>
+      </div>
+    </dashboard-box>

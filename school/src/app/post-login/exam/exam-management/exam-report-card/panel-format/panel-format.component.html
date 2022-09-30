@@ -1,0 +1,56 @@
+<div class="details-div">
+    <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+        <ng-container *ngFor="let result of filteredData">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header class="appear-animate">
+                    <mat-panel-title>
+                        <user-small-pic [userId]="result._id.studentId"></user-small-pic>
+                        <div>
+                            <br>
+                            <responsive [colGap]="'5px'">
+                                <div>
+                                    <b>Roll.No. </b>{{result.studentDetails.rollNo | numberData}}
+                                </div>
+                                <div>
+                                    {{result.studentDetails.firstName}} {{result.studentDetails.lastName}}
+                                </div>
+                            </responsive>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <table class="score-table" border="1" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                Subject
+                            </th>
+                            <th>
+                                Total Marks
+                            </th>
+                            <th>
+                                Passing Marks
+                            </th>
+                            <th>
+                                Marks Gained
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr class="tr" *ngFor="let subject of result.subjects">
+                        <td>
+                            {{ subject.subjectId | subject}}
+                        </td>
+                        <td>
+                            {{subject.maxMarks}}
+                        </td>
+                        <td>
+                            {{subject.passingMarks}}
+                        </td>
+                        <td [ngClass]="{'fail': subject.marksGained < subject.passingMarks}">
+                            {{subject.marksGained}}
+                        </td>
+                    </tr>
+                </table>
+            </mat-expansion-panel>
+        </ng-container>
+    </mat-accordion>
+</div>

@@ -1,0 +1,7 @@
+.appFooter{
+    min-height: 100px;
+    background-color: whitesmoke;
+    color: black;
+    padding: 20px 10px 20px 10px;
+    margin-bottom: -20px;
+}

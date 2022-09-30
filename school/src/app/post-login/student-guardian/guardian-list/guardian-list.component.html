@@ -1,0 +1,87 @@
+<card [loading]="isLoading" [title]="'Guardian List'" [subTitle]="'Manage your guardian for students'"
+  (refresh)="getList()">
+  <large-screen>
+    <table class="table" matSort (matSortChange)="sortClicked($event)">
+      <thead class="thead">
+        <tr>
+          <th class="sr" colspan="2">#</th>
+          <th matRipple mat-sort-header="basicInfo.firstName">
+            First Name
+            <mat-icon>face</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.lastName">
+            Last Name
+            <mat-icon>face</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="contactInfo.contactNo">
+            Mob No<mat-icon>phone_iphone</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="contactInfo.email">
+            Email Id<mat-icon>email</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.dob">
+            DOB<mat-icon>today</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.genderId">Gender</th>
+          <th class="action">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr" *ngFor="let guardian of guardians; let idx = index">
+          <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+          <td>
+              <user-small-pic [userId]="guardian.guardianId"></user-small-pic>
+          </td>
+          <td>{{guardian.basicInfo.firstName}}</td>
+          <td>{{guardian.basicInfo.lastName}}</td>
+          <td>{{guardian.contactInfo.contactNo}}</td>
+          <td>{{guardian.contactInfo.email}}</td>
+          <td>{{guardian.basicInfo.dob | date}}</td>
+          <td>{{guardian.basicInfo.genderId | masterData : 'gender'}}</td>
+          <td class="rt">
+            <button mat-icon-button appToolTip="'View Guardian'" class="icon-view" (click)="viewClicked(guardian._id, guardian.guardianId)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Guardian'" class="icon-edit"
+              (click)="editClicked(guardian._id, guardian.guardianId)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </large-screen>
+
+  <small-screen>
+    <ng-container *ngFor="let guardian of guardians; let idx = index; let odd = odd">
+      <card [childCard]="true" [header]="false">
+        <row gap="2px">
+          <div fxFlex="30%">
+            <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+          </div>
+          <div fxFlex class="rt">
+            <button mat-icon-button appToolTip="'View Guardian'" class="big-icon-view"
+              (click)="viewClicked(guardian._id, guardian.guardianId)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Guardian'" class="big-icon-edit"
+              (click)="editClicked(guardian._id, guardian.guardianId)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </row>
+        <user-card [userId]="guardian.guardianId" [firstName]="guardian.basicInfo.firstName"
+          [lastName]="guardian.basicInfo.lastName" [contactNo]="guardian.contactInfo.contactNo"
+          [email]="guardian.contactInfo.email" [dob]="guardian.basicInfo.dob" [genderId]="guardian.basicInfo.genderId">
+        </user-card>
+      </card>
+      <br>
+    </ng-container>
+  </small-screen>
+  <no-record-found *ngIf="guardians.length ==0"></no-record-found>
+  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+    [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions" (page)="pagingClicked($event)">
+  </mat-paginator>
+
+</card>

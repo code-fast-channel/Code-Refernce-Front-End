@@ -1,0 +1,41 @@
+.appHeader{  
+  background-color: var(--main-color);
+  color: white;
+}
+
+.schoolInfo{
+  text-align: center;
+  padding: 10px;
+  z-index: 100;
+  background-size: 200px 60px;
+}
+
+.orgName{
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+  color: var(--main-color) !important;
+}
+
+.clicked{
+  color: greenyellow;
+  font-size: 30px;
+}
+
+
+.logout{
+  color: var(--cross-icon-color);
+}
+.mat-badge-content{
+  opacity: 0.8;
+}
+
+.info-items{
+  padding: 10px 0px 10px 0px;
+}
+
+.closeButton{
+  margin: 10px 0px 10px 0px;
+  text-align: center;
+  cursor: pointer;
+}

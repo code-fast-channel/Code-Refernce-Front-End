@@ -1,0 +1,123 @@
+<card [loading]="isLoading" [title]="'Exam List'" [subTitle]="'Manage your exam for School'"
+    (refresh)="getList()">
+    <large-screen>
+        <table class="table" matSort (matSortChange)="sortClicked($event)">
+            <thead class="thead">
+                <tr>
+                    <th class="sr">#</th>
+                    <th matRipple mat-sort-header="academicSessionId">
+                        Academic Session
+                        <mat-icon>ballot</mat-icon>
+                    </th>
+                    <th matRipple mat-sort-header="examTypeId">
+                        Exam Type
+                        <mat-icon>developer_board</mat-icon>
+                    </th>
+                    <th matRipple mat-sort-header="classId">
+                        Class
+                        <mat-icon>ballot</mat-icon>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" *ngFor="let exam of exams; let idx = index">
+                    <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+                    <td>{{exam.academicSessionId | masterData : 'academicSession' }}</td>
+                    <td>{{exam.examTypeId | examType }}</td>
+                    <td>{{exam.classId | class }}</td>
+                    <td class="rt">
+                        <button mat-icon-button appToolTip="'Tabular Report Card'" class="icon-view"
+                            (click)="examTabularReportCardClicked(exam._id)">
+                            <mat-icon mat-icon-button>table_chart</mat-icon>
+                        </button>
+                        <button mat-icon-button appToolTip="'Report Card'" class="icon-view"
+                            (click)="examReportCardClicked(exam._id)">
+                            <mat-icon mat-icon-button>face</mat-icon>
+                        </button>
+                        <button mat-icon-button appToolTip="'View Exam'" class="icon-view"
+                            (click)="viewClicked(exam._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Exam'" class="icon-edit"
+                            (click)="editClicked(exam._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Exam'" class="icon-delete"
+                            (click)="deleteClicked(exam._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </large-screen>
+
+    <small-screen class="default-font">
+        <ng-container *ngFor="let exam of exams; let idx = index; let odd = odd">
+            <card [childCard]="true" [header]="false">
+                <row gap="2px">
+                    <div fxFlex="10%">
+                        <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+                    </div>
+                    <div fxFlex class="rt">
+                        <button mat-icon-button appToolTip="'Tabular Report Card'" class="big-icon-view"
+                            (click)="examTabularReportCardClicked(exam._id)">
+                            <mat-icon mat-icon-button>table_chart</mat-icon>
+                        </button>
+                        <button mat-icon-button appToolTip="'Report Card'" class="big-icon-view"
+                            (click)="examReportCardClicked(exam._id)">
+                            <mat-icon mat-icon-button>face</mat-icon>
+                        </button>
+                        <button mat-icon-button appToolTip="'View Exam'" class="big-icon-view"
+                            (click)="viewClicked(exam._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Exam'" class="big-icon-edit"
+                            (click)="editClicked(exam._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Exam'"
+                            class="big-icon-delete" (click)="deleteClicked(exam._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </row>
+                <br>
+                <div fxFlex>
+                    <mat-icon>ballot</mat-icon> <b>Academic Session: </b>
+                    <span class="small-screen-data">{{exam.academicSessionId | masterData : 'academicSession' }}</span>
+                </div>
+                <br>
+                <row>
+                    <div>
+                        <div class="bold">
+                            <mat-icon>developer_board</mat-icon> Exam Type
+                        </div>
+                        <div class="small-screen-data">
+                            {{exam.examTypeId | examType }}
+                        </div>
+                    </div>
+                    <div fxFlex>
+                        <div class="bold">
+                            <mat-icon>ballot</mat-icon> Class
+                        </div>
+                        <div class="small-screen-data">
+                            {{exam.classId | class }}
+                        </div>
+                    </div>
+                </row>
+            </card>
+            <br>
+        </ng-container>
+
+    </small-screen>
+
+    <no-record-found *ngIf="exams.length ==0"></no-record-found>
+
+    <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+        [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+        (page)="pagingClicked($event)">
+    </mat-paginator>
+</card>

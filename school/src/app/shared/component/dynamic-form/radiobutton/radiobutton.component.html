@@ -1,0 +1,10 @@
+<div [formGroup]="group">
+  <label *ngIf="field.label" class="radio-label-padding">
+    {{field.label}} <span class="requiredAsterisk" *ngIf="validators?.required">*</span>
+  </label>
+  <mat-radio-group [required]="validators?.required"  [formControlName]="field.name">
+    <mat-radio-button *ngFor="let item of field.options" [value]="item.id" class="custom-radio default-font">
+      {{item.name}} &nbsp;&nbsp; <large-screen>&nbsp;&nbsp;</large-screen>
+    </mat-radio-button>
+  </mat-radio-group>
+</div>

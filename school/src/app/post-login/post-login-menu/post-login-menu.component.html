@@ -1,0 +1,30 @@
+<ul>
+    <ng-container *ngTemplateOutlet="menuTemplate; context:{ _menus: menuList, _modelUrl: null }"></ng-container>
+  </ul>  
+  <ng-template #menuTemplate let-menus="_menus" let-modelUrl="_modelUrl">
+    <li *ngFor="let menu of menus" [ngClass]="{'openedSection': menu.showSubfolders}">
+      <span class="parentLink" [ngClass]="{'openedParentMenu': menu.showSubfolders}" *ngIf="menu.children?.length > 0 ; else elseBlock" (click)="closeAllMenus() && menu.showSubfolders = !menu.showSubfolders">
+       <mat-icon class="icons">{{menu.icon}}</mat-icon>
+       <ng-container *ngIf="!onlyIcons">
+         {{menu.name}}<mat-icon class="arrows" *ngIf="!menu.showSubfolders">keyboard_arrow_right</mat-icon><mat-icon class="arrows" *ngIf="menu.showSubfolders"></mat-icon>
+       </ng-container>
+      </span>
+      <ng-template #elseBlock>          
+          <a class="link submenuName" [ngClass]="{'activeMenu':this.router.url.includes(menu.url) && this.router.url.includes(modelUrl)}"  *ngIf="modelUrl; else noModelUrl" [routerLink]="[modelUrl,{outlets:{postLoginOutlet:[menu.url]}}]" (click)="closeSideMenu()">
+              <mat-icon class="icons">{{menu.icon}}</mat-icon> 
+              <ng-container *ngIf="!onlyIcons">{{menu.name}}</ng-container>              
+          </a>
+          <ng-template #noModelUrl>
+            <a class="link" [ngClass]="{'activeMenu':this.router.url.includes(menu.url)}" [routerLink]="menu.url" (click)="closeSideMenu()">
+              <mat-icon class="icons">{{menu.icon}}</mat-icon>
+              <ng-container *ngIf="!onlyIcons">{{menu.name}}</ng-container>
+            </a>
+          </ng-template>
+      </ng-template>
+      <ul *ngIf="menu.children?.length > 0 && menu.showSubfolders" class="appear-animate">
+        <ng-container *ngTemplateOutlet="menuTemplate; context:{ _menus : menu.children, _modelUrl: menu.modelUrl }"></ng-container>
+      </ul>
+    </li>
+</ng-template>
+
+

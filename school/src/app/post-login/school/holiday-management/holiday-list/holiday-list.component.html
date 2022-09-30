@@ -1,0 +1,86 @@
+<card [loading]="isLoading" [title]="'Holiday List'" [subTitle]="'Manage your holiday for School'"
+    (refresh)="getList()">
+    <large-screen>
+        <table class="table" matSort (matSortChange)="sortClicked($event)">
+            <thead class="thead">
+                <tr>
+                    <th class="sr">#</th>
+                    <th matRipple mat-sort-header="holidayName">
+                        Holiday Name
+                        <mat-icon>deck</mat-icon>
+                    </th>
+                    <th matRipple mat-sort-header="holidayDate">
+                        Holiday Date
+                        <mat-icon>today</mat-icon>
+                    </th>
+                    <th class="action">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" *ngFor="let holiday of holidays; let idx = index">
+                    <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+                    <td>{{holiday.holidayName}}</td>
+                    <td>{{holiday.holidayDate | date : 'fullDate'}}</td>
+                    <td class="rt">
+                        <button mat-icon-button appToolTip="'View Holiday'" class="icon-view"
+                            (click)="viewClicked(holiday._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Holiday'" class="icon-edit"
+                            (click)="editClicked(holiday._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Holiday'" class="icon-delete"
+                            (click)="deleteClicked(holiday._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </large-screen>
+
+    <small-screen class="default-font">
+        <ng-container *ngFor="let holiday of holidays; let idx = index; let odd = odd">
+            <card [childCard]="true" [header]="false">
+                <row gap="2px">
+                    <div fxFlex="30%">
+                        <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+                    </div>
+                    <div fxFlex class="rt">
+                        <button mat-icon-button appToolTip="'View Holiday'" class="big-icon-view"
+                            (click)="viewClicked(holiday._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Holiday'" class="big-icon-edit"
+                            (click)="editClicked(holiday._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Holiday'" class="big-icon-delete"
+                            (click)="deleteClicked(holiday._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </row>
+                <div class="bold">
+                    <mat-icon>today</mat-icon> {{holiday.holidayDate | date : 'fullDate'}}
+                </div>
+                <br>
+                <div class="small-screen-data">
+                    {{holiday.holidayName}}
+                </div>
+            </card>
+            <br>
+        </ng-container>
+
+    </small-screen>
+
+    <no-record-found *ngIf="holidays.length ==0"></no-record-found>
+
+    <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+        [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+        (page)="pagingClicked($event)">
+    </mat-paginator>
+
+</card>

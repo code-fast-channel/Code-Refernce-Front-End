@@ -1,0 +1,30 @@
+.attendanceStatus1{
+    background-color: orange !important;
+    color:white !important;
+}
+.attendanceStatus2{
+    background-color: white !important;
+    color:black !important;
+}
+
+.attendanceStatus5{
+    background-color: #0000ff4f !important;
+}
+
+.attendanceStatus10{
+    background-color: #80808047 !important;
+}
+
+.attendanceStatus15{
+    background-color: #80000082  !important;
+    color:white !important;
+}
+
+.attendanceStatus20{
+    background-color: #ff0000b6  !important;
+    color: white;
+}
+
+.attendanceButton{
+    width: 70px;
+}

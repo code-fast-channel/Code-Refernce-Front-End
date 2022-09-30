@@ -1,0 +1,119 @@
+<card [loading]="isLoading" [title]="'Student List'" [subTitle]="'Manage your student for students'"
+  (refresh)="getList()">
+  <large-screen>
+    <responsive>
+      <table class="table" matSort (matSortChange)="sortClicked($event)">
+        <thead class="thead">
+          <tr>
+            <th class="sr" colspan="2">#</th>
+            <th matRipple mat-sort-header="basicInfo.firstName">
+              First Name
+              <mat-icon>face</mat-icon>
+            </th>
+            <th matRipple mat-sort-header="basicInfo.lastName">
+              Last Name
+              <mat-icon>face</mat-icon>
+            </th>
+            <th matRipple mat-sort-header="academicInfo.registrationNo">
+              Reg No<mat-icon>receipt</mat-icon>
+            </th>
+            <th matRipple mat-sort-header="academicInfo.classId">
+              Class<mat-icon>ballot</mat-icon>
+            </th>
+            <th matRipple mat-sort-header="academicInfo.sectionId">
+              Section<mat-icon>list_alt</mat-icon>
+            </th>
+            <th matRipple mat-sort-header="academicInfo.rollNo">
+              Roll No<mat-icon>emoji_people</mat-icon>
+            </th>
+            <th matRipple mat-sort-header="basicInfo.dob">
+              DOB<mat-icon>today</mat-icon>
+            </th>
+            <th matRipple mat-sort-header="basicInfo.genderId">Gender</th>
+            <th class="action">
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr" *ngFor="let student of students; let idx = index">
+            <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+            <td>
+              <user-small-pic [userId]="student.studentId"></user-small-pic>
+            </td>
+            <td>{{student.basicInfo.firstName}}</td>
+            <td>{{student.basicInfo.lastName}}</td>
+            <td>{{student.academicInfo.registrationNo}}</td>
+            <td>{{student.academicInfo.classId | class }}</td>
+            <td>{{student.academicInfo.sectionId | masterData : 'classSections'}}</td>
+            <td>{{student.academicInfo.rollNo | numberData}}</td>
+            <td>{{student.basicInfo.dob | date}}</td>
+            <td>{{student.basicInfo.genderId | masterData : 'gender'}}</td>
+            <td class="rt">
+              <button mat-icon-button appToolTip="'View Student Rating'" class="icon-view"
+                (click)="ratingClicked(student.studentId)">
+                <mat-icon mat-icon-button>star</mat-icon>
+              </button>
+              <button mat-icon-button appToolTip="'View Student'" class="icon-view"
+                (click)="viewClicked(student._id, student.studentId)">
+                <mat-icon mat-icon-button>visibility</mat-icon>
+              </button>
+              <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Student'" class="icon-edit"
+                (click)="editClicked(student._id, student.studentId)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </responsive>
+  </large-screen>
+
+  <small-screen>
+    <ng-container *ngFor="let student of students; let idx = index; let odd = odd">
+      <card [childCard]="true" [header]="false">
+        <row gap="2px">
+          <div fxFlex="30%">
+            <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+          </div>
+          <div fxFlex class="rt">
+            <button mat-icon-button appToolTip="'View Student rating'" class="big-icon-view"
+              (click)="ratingClicked(student.studentId)">
+              <mat-icon mat-icon-button>star</mat-icon>
+            </button>
+            <button mat-icon-button appToolTip="'View Student'" class="big-icon-view"
+              (click)="viewClicked(student._id, student.studentId)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Student'" class="big-icon-edit"
+              (click)="editClicked(student._id, student.studentId)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </row>
+        <user-card [userId]="student.studentId" [firstName]="student.basicInfo.firstName"
+          [lastName]="student.basicInfo.lastName" [registrationNo]="student.academicInfo.registrationNo"
+          [rollNo]="student.academicInfo.rollNo" [dob]="student.basicInfo.dob" [genderId]="student.basicInfo.genderId">
+        </user-card>
+        <div class="small-font">
+          <b>Class: </b> {{student.academicInfo.classId | class}}
+        </div>
+        <div class="small-font">
+          <b>Section: </b>{{student.academicInfo.sectionId | masterData : 'classSections'}}
+        </div>
+      </card>
+      <br>
+    </ng-container>
+  </small-screen>
+
+  <no-record-found *ngIf="students.length ==0"></no-record-found>
+
+  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+    [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions" (page)="pagingClicked($event)">
+  </mat-paginator>
+</card>
+
+<card *ngIf="isViewRating" [title]="'Student Ratings'" [popUpMode]="true" [refreshButton]="false" (deleteCardEvent)="isViewRating = false">  
+  <user-small-pic cardHeader [userId]="selectedStudentId"></user-small-pic>
+  <app-student-whole-rating [studentId]="selectedStudentId">
+  </app-student-whole-rating>
+</card>

@@ -1,0 +1,14 @@
+<mat-form-field (click)="picker.opened = true" fxFlex [formGroup]="tempForm" 
+[appearance]="masterData.outlineFields && !field.isViewMode ? 'outline' : 'standard'">
+  <mat-label>{{field.label}}<span class="requiredAsterisk" *ngIf="validators?.required">*</span></mat-label>
+  <input readonly matInput [formControlName]="field.name" [matDatepicker]="picker" placeholder="field.label"
+  [min]="minDate" [max]="maxDate">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker [startView]="startView"></mat-datepicker>
+  <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+    <mat-error *ngIf="masterData.showErrorMessages && group.get(field.name).hasError(validation.name)">
+      <error-message [validation]="validation" [lable]="field.label"></error-message>
+    </mat-error>
+  </ng-container>
+  <mat-hint *ngIf="field.hint">{{field.hint}}</mat-hint>
+</mat-form-field>

@@ -1,0 +1,8 @@
+<div fxFlex [formGroup]="group" class="standard-form-field toggle-button" [ngClass]="{'toggle-outline' : masterData.outlineFields }">
+    <label requi class="radio-label-padding">
+        <span class="requiredAsterisk" *ngIf="validators?.required">*</span>
+    </label>
+    <mat-slide-toggle color="primary" matInput [formControlName]="field.name">
+        <span class="toggleLabel">{{field.label}}</span> {{this.group.controls[field.name].value ? 'Yes' : 'No'}}
+    </mat-slide-toggle>
+</div>

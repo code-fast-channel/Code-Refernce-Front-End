@@ -1,0 +1,10 @@
+<footer class="prelogin-footer"> 
+        <qrcode [qrdata]="websiteUrl"></qrcode>
+<input type="button" value="Toggle Map" (click)="showMap = !showMap">
+<app-map *ngIf="showMap"></app-map>
+
+<input type="button" value="Toggle Quotes" (click)="showQuotes = !showQuotes">
+<card *ngIf="showQuotes">
+<app-all-quotes></app-all-quotes>
+</card>
+</footer>

@@ -1,0 +1,15 @@
+<div class="relative" *ngIf="loaderType === 'mover'">
+<div fxLayout="row"  class="bubbles">
+    <div fxFlex></div>
+    <div fxFlex></div>
+    <div fxFlex></div>
+    <div fxFlex></div>
+    <div fxFlex></div>
+    <div fxFlex></div>
+    <div fxFlex></div>
+  </div>
+</div>
+
+
+<app-spinner *ngIf="loaderType === 'spinner'"></app-spinner>
+<app-loader-bars *ngIf="loaderType === 'bars'"></app-loader-bars>

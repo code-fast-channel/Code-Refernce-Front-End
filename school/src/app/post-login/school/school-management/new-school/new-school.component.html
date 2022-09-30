@@ -1,0 +1,66 @@
+<card [loading]="isLoading" [title]="title" [subTitle]="subTitle" [refreshButton]="false" *ngIf="!isPopulatingFormDb">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)">
+        <mat-tab-group [backgroundColor]="'primary'" [@.disabled]="true">
+            <mat-tab *ngIf="this.mainForm">
+                <ng-template mat-tab-label>
+                    <smart-div highlighPass="true" [form]="this.mainForm">
+                        <mat-icon class="example-tab-icon">business</mat-icon>
+                    </smart-div>
+                    <large-screen>Basic</large-screen>
+                </ng-template>
+                <br><br>
+
+                <app-section [icon]="'business'" [title]="'School Basic Information'">
+                    <br>
+                    <form-code-name [form]="mainForm.controls['schoolBasicInfo']" [isViewMode]="isViewMode"
+                        [codeField]="false" [Required]="true"
+                        [initialFormValues]="initialFormValues && initialFormValues?.schoolBasicInfo">
+                    </form-code-name>
+                </app-section>
+                <br><br>
+                <app-section [icon]="'local_phone'" [title]="'School Contact Information'">
+                    <br>
+                    <form-contact-info [Required]="true" [form]="mainForm.controls['schoolContact']"
+                        [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues && initialFormValues?.schoolContact">
+                    </form-contact-info>
+                </app-section>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <smart-div highlighPass="true" [form]="this.mainForm['controls'].branch">
+                        <mat-icon class="example-tab-icon">account_tree</mat-icon>
+                    </smart-div>
+                    <large-screen>Branches</large-screen>
+                </ng-template>
+                <br>
+                <div *ngFor="let branch of this.mainForm['controls'].branch['controls']; let idxBranch = index;">
+                    <card [childCard]="true" [icon]="'location_city'"
+                        [title]="this.branch.controls['branchBasicInfo']?.controls['name']?.value ? this.branch.controls['branchBasicInfo']?.controls['name']?.value : '---------'"
+                        [refreshButton]="false">
+                        <div class="rt" *ngIf="isSuperAdmin && !isViewMode">
+                            <button type="button" class="delete-button" mat-raised-button
+                                (click)="removeBranchClicked(idxBranch)">
+                                <mat-icon matSuffix>delete_forever</mat-icon>
+                            </button>
+                        </div>
+                        <app-school-branch-info [form]="branch" [isViewMode]="isViewMode" [changeModeId]="changeModeId" [isSuperAdmin]="isSuperAdmin"
+                            [initialFormValues]="initialFormValues?.branch.length > idxBranch && initialFormValues.branch[idxBranch]">
+                        </app-school-branch-info>
+                    </card>
+                    <br>
+                </div>
+
+                <p class="rt" *ngIf="isSuperAdmin && !isViewMode && mainForm.controls['branch'].valid">
+                    <button class="addOneMoreButton" mat-raised-button type="button" value="Add Branch"
+                        (click)="addBranchClicked()">
+                        <mat-icon matSuffix>add</mat-icon>
+                        <mat-icon matSuffix>account_tree</mat-icon>
+                    </button>
+                </p>
+            </mat-tab>
+        </mat-tab-group>
+
+        <form-buttons *ngIf="!isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+    </form>
+</card>

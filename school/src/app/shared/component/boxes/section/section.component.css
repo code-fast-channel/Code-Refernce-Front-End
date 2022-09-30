@@ -1,0 +1,29 @@
+.section{
+    border-width: 0px;
+    border-style: solid;
+    border-color: whitesmoke;
+    overflow: hidden;
+    color: black;
+}
+
+.section-title{
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    border-width: 0px 0px 2px 0px;
+    border-style: solid;
+    border-color: gray;
+    border-top-left-radius: 16px;
+    width: 100%;
+    padding: 14px 2px 6px 5px;
+}
+
+.section-content{
+    padding: 0px 10px 20px 10px;
+}
+
+.section-icon{
+    color: gray;
+    margin-right: 5px;
+}

@@ -1,0 +1,30 @@
+<row gap="10px">
+    <div fxFlex="120px">
+        <img class="user-image"
+            [src]="environment.ftpUrl+ userProfilePicDirectory + this.sharedService.serializeMongoObjectId(userId) +'.png'"
+            onClick="this.src=this.src+ '?update=' + Date.now()">
+    </div>
+    <div fxFlex class="small-size">
+        <span class="user-name">{{firstName}} {{lastName}}</span>
+        <br><br>
+        <ng-content class="small-size"></ng-content>
+        <p *ngIf="dob">
+            <mat-icon>cake</mat-icon>{{dob | date}}
+        </p>
+        <p *ngIf="contactNo">
+            <mat-icon>phone</mat-icon>{{contactNo}}
+        </p>
+        <p *ngIf="email">
+            <mat-icon>email</mat-icon>{{email}}
+        </p>
+        <p *ngIf="registrationNo">
+            <mat-icon>receipt</mat-icon>{{registrationNo}}
+        </p>
+        <p *ngIf="rollNo">
+            <mat-icon>emoji_people</mat-icon>{{rollNo  | numberData }}
+        </p>
+        <p>
+            {{genderId | masterData : 'gender'}}
+        </p>
+    </div>
+</row>

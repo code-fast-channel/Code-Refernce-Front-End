@@ -1,0 +1,17 @@
+.warn-message{
+    color: red;
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 14px;
+}
+
+.warn-img{
+    max-width: 99%;
+}
+
+.title-message{
+    padding: 10px 5px 10px 5px;
+    background-color: red;
+    color: white;
+    font-size: 20px;
+}

@@ -1,0 +1,31 @@
+<div class="chartBg">
+  <div>
+    <div>
+      <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [options]="chartOptions"
+        [colors]="chartColors" [legend]="chartLegend">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+<div fxLayout="row" fxLayoutGap="14px">
+  <span class="fill-space"></span>
+  <mat-icon *ngIf="isPieChart" class="chart-icons pointer" mat-icon-button
+    [ngClass]="{'active-chart': chartType=='doughnut'}" (click)="changeChartType('doughnut')">donut_large</mat-icon>
+  <mat-icon *ngIf="isPieChart" class="chart-icons pointer" mat-icon-button
+    [ngClass]="{'active-chart': chartType=='pie'}" (click)="changeChartType('pie')">pie_chart</mat-icon>
+
+  <mat-icon *ngIf="!isPieChart" class="chart-icons pointer" mat-icon-button
+    [ngClass]="{'active-chart': chartType=='bar'}" (click)="changeChartType('bar')">bar_chart</mat-icon>
+  <mat-icon *ngIf="!isPieChart" class="chart-icons pointer" mat-icon-button
+    [ngClass]="{'active-chart': chartType=='line'}" (click)="changeChartType('line')">show_chart</mat-icon>
+
+  <mat-icon *ngIf="filter" class="chart-icons pointer legend-icon" mat-icon-button
+    [ngClass]="{'active-chart': chartLegend }" (click)="chartLegend = !chartLegend">image_search</mat-icon>
+
+  <mat-icon *ngIf="false" (click)="downloadChart($event)">save_alt</mat-icon>
+
+  <span class="fill-space"></span>
+</div>

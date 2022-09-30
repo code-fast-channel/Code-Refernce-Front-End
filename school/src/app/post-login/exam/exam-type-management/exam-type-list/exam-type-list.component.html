@@ -1,0 +1,86 @@
+<card [loading]="isLoading" [title]="'Exam Type List'" [subTitle]="'Manage your Exam Type for School'"
+    (refresh)="getList()">
+    <large-screen>
+        <table class="table" matSort (matSortChange)="sortClicked($event)">
+            <thead class="thead">
+                <tr>
+                    <th class="sr">#</th>
+                    <th matRipple mat-sort-header="code">
+                            Exam Type Code
+                            <mat-icon>developer_board</mat-icon>
+                        </th>
+                    <th matRipple mat-sort-header="name">
+                        Exam Type Name
+                        <mat-icon>developer_board</mat-icon>
+                    </th>
+                    <th class="action">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tr" *ngFor="let examType of examTypes; let idx = index">
+                    <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+                    <td>{{examType.code}}</td>
+                    <td>{{examType.name}}</td>
+                    <td class="rt">
+                        <button mat-icon-button appToolTip="'View Subject'" class="icon-view"
+                            (click)="viewClicked(examType._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Subject'" class="icon-edit"
+                            (click)="editClicked(examType._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Subject'" class="icon-delete"
+                            (click)="deleteClicked(examType._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </large-screen>
+
+    <small-screen class="default-font">
+        <ng-container *ngFor="let examType of examTypes; let idx = index; let odd = odd">
+            <card [childCard]="true" [header]="false">
+                <row gap="2px">
+                    <div fxFlex="30%">
+                        <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+                    </div>
+                    <div fxFlex class="rt">
+                        <button mat-icon-button appToolTip="'View Subject'" class="big-icon-view"
+                            (click)="viewClicked(examType._id)">
+                            <mat-icon mat-icon-button>visibility</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Subject'" class="big-icon-edit"
+                            (click)="editClicked(examType._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Subject'" class="big-icon-delete"
+                            (click)="deleteClicked(examType._id)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </row>
+                <div class="bold">
+                    <mat-icon>developer_board</mat-icon> {{examType.code}}
+                </div>
+                <br>
+                <div class="small-screen-data">
+                    {{examType.name}}
+                </div>
+            </card>
+            <br>
+        </ng-container>
+
+    </small-screen>
+
+    <no-record-found *ngIf="examTypes.length ==0"></no-record-found>
+
+    <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+        [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+        (page)="pagingClicked($event)">
+    </mat-paginator>
+
+</card>
