@@ -1,0 +1,16 @@
+mat-icon{
+    font-size: 16px;
+}
+
+.link-button{
+	cursor: pointer;
+	color: blueviolet;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.link-button,
+.mat-icon{
+	font-style: italic;
+	text-decoration: underline;
+}

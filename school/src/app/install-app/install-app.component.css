@@ -1,0 +1,13 @@
+.downloadBtn{
+    background-color: var(--main-color);
+    color: white;
+    width: 100%;
+    padding: 1%;  
+    zoom:125%;
+}
+
+.downloadBtn mat-icon{
+    zoom:150%;
+    color: greenyellow;
+    margin: 0px 10px 0px 10px;
+}

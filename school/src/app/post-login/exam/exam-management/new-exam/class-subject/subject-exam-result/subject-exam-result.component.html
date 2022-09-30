@@ -1,0 +1,75 @@
+<!--
+<input type="button" value="Exam results" (click)="showExamResult = true">
+<card *ngIf="showExamResult" [header]="false" [fullScreen]="true">    
+    <div class="custom-page-header">
+        <row>
+            <div fxFlex>
+                <b>{{subjectId | subject}}</b> exam result
+            </div>
+            <div fxFlex="30px">
+                <button type="button" class="cross card-custom-header-buttons" mat-icon-button (click)="showExamResult = false">
+                    <mat-icon>cancel_presentation</mat-icon>
+                </button>
+            </div>
+        </row>
+    </div>
+-->
+<card title="Result" subTitle="Update student exam result" [refreshButton]="false">
+    <form [formGroup]="form">
+        <div class="section-tabs">
+            <mat-button-toggle-group #selectedSectionToggleButton="matButtonToggleGroup" [value]="1">
+                <mat-button-toggle *ngFor="let section of sections" [value]="section">
+                    <span class="section-name">Section {{section | masterData : 'classsections'}}</span>
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+        <responsive *ngFor="let section of this.form.controls"
+            [hidden]="selectedSectionToggleButton.value != section.get('sectionId').value">
+            <div fxFlex>
+                <table class="table">
+                    <thead class="thead">
+                        <tr>
+                            <th></th>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let student of section.get('students').controls" class="tr appear-animate">
+                            <td class="td">
+                                <user-small-pic [userId]="student.get('studentId').value"></user-small-pic>
+                            </td>
+                            <td class="td">
+                                {{student.get('studentId').value | objectFilter : studentDetails : 'studentId' : 'rollNo' | numberData}}
+                            </td>
+                            <td class="td">
+                                {{student.get('studentId').value | objectFilter : studentDetails : 'studentId' : 'firstName'}}
+                                {{student.get('studentId').value | objectFilter : studentDetails : 'studentId' : 'lastName'}}
+                            </td>
+                            <td class="td rt marksTd" [formGroup]="student"
+                                [ngClass]="{'fail': student.get('marksGained').value < this.subject.get('passingMarks')?.value}">
+                                <input *ngIf="!isViewMode" class="marksGainedTextbox" trim matInput
+                                    [formControl]="student.get('marksGained')" type="number" min="0" max="100">
+                                <span *ngIf="isViewMode">{{student.get('marksGained').value}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+            </div>
+            <div style="padding-left: 26px; padding-right: 6px;" fxFlex class="appear-animate"
+                [hidden]="selectedSectionToggleButton.value != section.get('sectionId').value">
+                <app-subject-exam-result-graph *ngIf="isViewMode && this.subject.get('passingMarks')"
+                    [subject]="subject" [sectionId]="section.get('sectionId').value" [form]="this.form">
+                </app-subject-exam-result-graph>
+            </div>
+        </responsive>
+    </form>
+    <button *ngIf="!isViewMode && editPermissions" style="max-width: 99%;"
+        (click)="saveSectionResult(selectedSectionToggleButton.value)" class="btn-submit padding generic-buttons"
+        type="button" mat-raised-button>
+        Save only {{subjectId | subject}}-{{selectedSectionToggleButton.value | masterData : 'classsections'}} result
+    </button>
+</card>

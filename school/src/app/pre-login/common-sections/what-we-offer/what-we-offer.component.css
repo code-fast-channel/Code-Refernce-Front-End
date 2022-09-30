@@ -1,0 +1,44 @@
+.offerDiv{
+    padding: 5% 10% 10% 10%;
+    color: #444;
+    background-color: whitesmoke;
+}
+
+.offer-icon mat-icon{
+    padding: 10px;
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: white;
+    border-style: solid;
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+    color: var(--main-color);
+    background-color: white;    
+}
+
+.maintitle{
+    font-style: italic;
+    color: var(--main-color);
+}
+
+.title{
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    color: var(--main-color);
+}
+
+.offer-item{
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.offer-item:hover{
+    background-color: white;
+    border-color: white;
+    border-radius: 10px;
+    border-width: 1px;
+}

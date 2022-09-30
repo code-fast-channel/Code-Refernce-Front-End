@@ -1,0 +1,12 @@
+<div [ngClass]="[ this.form?.enabled && this.form?.touched && !this.form?.valid ? 'panelError' :
+                  this.form?.touched && highlighPass ? 'pass' : '']" fxLayout="row" fxLayoutGap="10px"
+    fxLayoutAlign="center center">
+    <mat-icon *ngIf="icon && !isFormStatus" fxFlex>{{icon}}</mat-icon>
+    <mat-icon *ngIf="isFormStatus" fxFlex>{{this.form?.valid ? 'check_circle' : 'cancel'}}</mat-icon>
+    <span fxFlex class="smart-div-badge">
+        {{badge ? badge : ' '}}
+    </span>
+    <span fxFlex="99%" class="content">
+        <ng-content></ng-content>
+    </span>
+</div>

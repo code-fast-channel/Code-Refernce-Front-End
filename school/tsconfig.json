@@ -1,0 +1,46 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+      "baseUrl": "src",
+	"paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@app/models": [
+        "app/models/*"
+      ],
+      "@app/shared/*": [
+        "app/shared/*"
+      ],
+      "@app/pre-login/*": [
+        "app/pre-login/*"
+      ],
+      "@app/post-login/*": [
+        "app/post-login/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

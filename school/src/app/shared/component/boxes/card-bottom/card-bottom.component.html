@@ -1,0 +1,50 @@
+<ng-container *ngIf="!open && defaultButton">
+    <large-screen>
+        <button *ngIf="!showOnlyBottomButton" type="button" (click)="show()" mat-raised-button matTooltipShowDelay="100"
+            class="btn" matTooltipHideDelay="100" [ngClass]="{'formHasData': isFormHasData}">
+            <mat-icon>{{icon}}</mat-icon> {{title}}
+        </button>
+        <span *ngIf="showOnlyBottomButton" class="bottomButtonArea jump-animate">
+            <row>
+                <div class="fill-space"></div>
+                <div class="cursor bottomButton" (click)="show()" [ngClass]="{'formHasData': isFormHasData}">
+                    <mat-icon>{{icon}}</mat-icon> {{title}}
+                </div>               
+                <div class="fill-space"></div>
+            </row>
+        </span>
+    </large-screen>
+
+    <small-screen>
+        <span class="bottomButtonArea jump-animate">
+            <row>
+                <div class="fill-space"></div>
+                <mat-icon class="special-icon appear-animate box-shadow cursor" [ngClass]="{'formHasData': isFormHasData}"
+                 (click)="show()">{{icon}}</mat-icon>
+                <div class="fill-space"></div>
+            </row>
+        </span>
+    </small-screen>
+</ng-container>
+
+<mat-card class="card-fullscreen cardBottomScreen" *ngIf="open">
+    <div class="closeDiv" (click)="this.open = false">
+    </div>
+    <div class="cardBottomDiv box-shadow">
+        <div class="cardBottomTitle">
+            <row gap="0px">
+                <div>
+                    <mat-icon>{{icon}}</mat-icon> {{title}}
+                    <ng-content select="[cardHeader]"></ng-content>
+                </div> 
+                <div class="fill-space"></div>
+                <div class="cross pointer" fxFlex="30px">
+                    <mat-icon (click)="this.open = false">cancel_presentation</mat-icon>
+                </div>
+            </row>
+        </div>
+        <div class="cardBottomContentDiv">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</mat-card>

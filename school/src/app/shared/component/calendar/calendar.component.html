@@ -1,0 +1,64 @@
+<responsive>
+  <div fxFlex>
+      <responsive>
+          <div>
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle (click)="previousClicked()">
+                    <mat-icon>navigate_before</mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle (click)="todayClicked()">
+                    <mat-icon>today</mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle (click)="nextClicked()">
+                    <mat-icon>navigate_next</mat-icon>
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+                
+                <span class="monthYearName">
+                  {{display.monthName}} {{display.year}}
+                </span>
+          </div>
+          <div class="fill-space"></div>
+          <div *ngIf="false">
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle (click)="changeMode('month')">
+                    Month
+                  </mat-button-toggle>
+                  <mat-button-toggle (click)="changeMode('week')">
+                    Week
+                  </mat-button-toggle>
+                  <mat-button-toggle (click)="changeMode('day')">
+                    Day
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+          </div>
+        </responsive>
+        <br><br>
+        <div>
+        <mat-grid-list cols="7" rowHeight="20px">
+          <mat-grid-tile class="calendarHeader" *ngFor="let day of weekday; let idx = index">
+            <span>{{day}}</span>
+            </mat-grid-tile>
+        </mat-grid-list>
+          <mat-grid-list cols="7" rowHeight="8vh">
+            <mat-grid-tile *ngFor="let day of emptyStartDays" class="emptyBoxes"></mat-grid-tile>
+            <mat-grid-tile *ngFor="let day of monthDays; let idx = index" 
+            [ngClass]="{
+                        'today-box': today.year === display.year && today.month === display.month && today.date === idx+1,
+                        'selected-date box-shadow': selected.year === display.year && selected.month === display.month && selected.date === idx+1
+                      }"
+                            (click)="dateClicked(idx+1, display.month, display.year)">
+              <span [ngClass]="{'today box-shadow': today.year === display.year && today.month === display.month && today.date === idx+1, 'sunday': (idx + emptyStartDays.length) % 7 === 0}">{{idx + 1}}</span>    
+            </mat-grid-tile>
+            <mat-grid-tile *ngFor="let day of emptyEndDays" class="emptyBoxes"></mat-grid-tile>
+          </mat-grid-list>
+        </div>
+  </div>
+    <mat-divider vertical="true"></mat-divider>
+  <div fxFlex>
+    <small-screen>
+      <br><br><br> <hr> <br><br>
+    </small-screen>
+    <ng-content></ng-content>
+  </div>
+</responsive>

@@ -1,0 +1,22 @@
+.sidenavContainer{
+  position: absolute;
+  top: 60px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+}
+
+.sideNavContent{
+color: var(--main-bg-color);
+}
+
+
+.sideNav{
+  background-color: var(--sidemenu-color);
+  min-width: 280px;
+  color: var(--sidemenu-text-color);
+}
+
+agm-map {
+  height: 300px;
+ } 

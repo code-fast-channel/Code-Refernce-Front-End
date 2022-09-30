@@ -1,0 +1,13 @@
+.scrollToTopButton{
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    outline: none;
+    z-index: 999;
+    cursor: pointer;
+  }
+
+  .scrollSpanIcon{
+    z-index: 999;
+    cursor: pointer;        
+  }

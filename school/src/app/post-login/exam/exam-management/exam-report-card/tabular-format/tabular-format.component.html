@@ -1,0 +1,28 @@
+<table class="table" *ngIf="filteredData">
+    <thead class="thead" style="zoom: 110%;">
+        <tr>
+            <th colspan="2">
+                Student Info
+            </th>
+            <th *ngFor="let subject of filteredData[0].subjects">
+                {{ subject.subjectId | subject}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="tr appear-animate" *ngFor="let result of filteredData">
+            <td class="td" style="width: 40px;">
+                <user-small-pic [userId]="result._id.studentId"></user-small-pic>
+            </td>
+            <td class="td" style="zoom: 120%; padding-left: 5px;">
+                <b>Roll.No. </b>{{result.studentDetails.rollNo | numberData}}
+                <br>
+                {{result.studentDetails.firstName}} {{result.studentDetails.lastName}}
+            </td>
+            <td class="td" style="zoom: 120%;" *ngFor="let subject of result.subjects"
+                [ngClass]="{'fail': subject.marksGained < subject.passingMarks}">
+                {{subject.marksGained}}
+            </td>
+        </tr>
+    </tbody>
+</table>

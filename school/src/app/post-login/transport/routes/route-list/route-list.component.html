@@ -1,0 +1,93 @@
+<card [loading]="isLoading" [title]="'Route List'" [subTitle]="'Manage your route for transport'"
+  (refresh)="getList()">
+  <large-screen>
+    <table class="table" matSort (matSortChange)="sortClicked($event)">
+      <thead class="thead">
+        <tr>
+          <th class="sr">#</th>
+          <th matRipple mat-sort-header="basicInfo.routeName">
+            Route Name
+            <mat-icon>map</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.distance">
+            Length (K.M)
+            <mat-icon>swap_calls</mat-icon>
+          </th>
+          <th class="action">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr" *ngFor="let route of routes; let idx = index">
+          <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+          <td>{{route.basicInfo.routeName}}</td>
+          <td>{{route.basicInfo.routeLength}}</td>
+          <td class="rt">
+            <button mat-icon-button appToolTip="'View Route'" class="icon-view" (click)="viewClicked(route._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Route'" class="icon-edit" (click)="editClicked(route._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Route'" class="icon-delete"
+              (click)="deleteClicked(route._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </large-screen>
+
+  <small-screen class="default-font">
+    <ng-container *ngFor="let route of routes; let idx = index; let odd = odd">
+      <card [childCard]="true" [header]="false">
+        <row gap="2px">
+          <div fxFlex="30%">
+            <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+          </div>
+          <div fxFlex class="rt">
+            <button mat-icon-button appToolTip="'View Route'" class="icon-view" (click)="viewClicked(route._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Route'" class="icon-edit" (click)="editClicked(route._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Route'" class="big-icon-delete"
+              (click)="deleteClicked(route._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </row>
+        <br>
+        <row gap="0px">
+          <div>
+            <div class="bold">
+              <mat-icon>map</mat-icon>Route Name
+            </div>
+            <div class="small-screen-data">
+              {{route.basicInfo.routeName}}
+            </div>
+          </div>
+          <div class="fill-space"></div>
+          <div>
+            <div class="bold">
+              <mat-icon>swap_calls</mat-icon>Route length
+            </div>
+            <div class="small-screen-data">
+              {{route.basicInfo.routeLength}} K.M
+            </div>
+          </div>
+        </row>
+      </card>
+      <br>
+    </ng-container>
+  </small-screen>
+
+  <no-record-found *ngIf="routes.length ==0"></no-record-found>
+
+  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+    [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions" (page)="pagingClicked($event)">
+  </mat-paginator>
+
+</card>

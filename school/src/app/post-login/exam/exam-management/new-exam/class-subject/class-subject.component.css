@@ -1,0 +1,8 @@
+.color-black{
+    color: black !important;
+}
+
+.mat-expansion-panel-spacing{
+    border-width: 5px !important;
+    margin-bottom: 40px !important;
+}

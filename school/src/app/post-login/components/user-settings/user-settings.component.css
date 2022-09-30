@@ -1,0 +1,40 @@
+.info-items{
+    padding: 10px 0px 10px 0px;
+    color: black;
+  }
+
+.zoom-buttons{
+  font-size: 30px;
+}
+
+.zoom-value{
+  padding: 20px;
+  vertical-align: super;
+}
+
+.custom-dropdown
+{
+  padding: 5px;
+}
+
+.custom-dropdown-item
+{
+  padding: 5px;
+}
+
+.bgImagePreview{
+  height: 50px;
+  width: 100px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: gray;
+  background-size: contain;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+mat-select{
+  border-width: 2px;
+  border-style: solid;
+  padding: 5px;
+}

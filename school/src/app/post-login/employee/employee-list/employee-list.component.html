@@ -1,0 +1,96 @@
+<card [loading]="isLoading" [title]="'Employee List'" [subTitle]="'Manage your employee for employees'"
+  (refresh)="getList()">
+  <large-screen>
+    <table class="table" matSort (matSortChange)="sortClicked($event)">
+      <thead class="thead">
+        <tr>
+          <th class="sr" colspan="2">#</th>
+          <th matRipple mat-sort-header="basicInfo.firstName">
+            First Name
+            <mat-icon>face</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.lastName">
+            Last Name
+            <mat-icon>face</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="contactInfo.contactNo">
+            Mob No<mat-icon>phone_iphone</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="contactInfo.email">
+            Email Id<mat-icon>email</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.dob">
+            DOB<mat-icon>today</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.genderId">Gender</th>
+          <th class="action">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr" *ngFor="let employee of employees; let idx = index">
+          <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+          <td>
+            <user-small-pic [userId]="employee._id"></user-small-pic>
+          </td>
+          <td>{{employee.basicInfo.firstName}}</td>
+          <td>{{employee.basicInfo.lastName}}</td>
+          <td>{{employee.contactInfo.contactNo}}</td>
+          <td>{{employee.contactInfo.email}}</td>
+          <td>{{employee.basicInfo.dob | date}}</td>
+          <td>{{employee.basicInfo.genderId | masterData : 'gender'}}</td>
+          <td class="rt">
+            <button mat-icon-button appToolTip="'View Employee'" class="icon-view" (click)="viewClicked(employee._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Employee'" class="icon-edit"
+              (click)="editClicked(employee._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions && employee._id != masterData.superAdminEmployeeId.$oid" 
+            mat-icon-button appToolTip="'Delete Employee'" class="icon-delete"
+              (click)="deleteClicked(employee._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </large-screen>
+
+  <small-screen>
+    <ng-container *ngFor="let employee of employees; let idx = index; let odd = odd">
+      <card [childCard]="true" [header]="false">
+        <row gap="2px">
+          <div fxFlex="30%">
+            <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+          </div>
+          <div fxFlex class="rt">
+            <button mat-icon-button appToolTip="'View Employee'" class="big-icon-view"
+              (click)="viewClicked(employee._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Employee'" class="big-icon-edit"
+              (click)="editClicked(employee._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions && employee._id != masterData.superAdminEmployeeId.$oid" mat-icon-button appToolTip="'Delete Employee'" class="big-icon-delete"
+              (click)="deleteClicked(employee._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </row>
+        <user-card [userId]="employee._id" [firstName]="employee.basicInfo.firstName"
+          [lastName]="employee.basicInfo.lastName" [contactNo]="employee.contactInfo.contactNo"
+          [email]="employee.contactInfo.email" [dob]="employee.basicInfo.dob" [genderId]="employee.basicInfo.genderId">
+        </user-card>
+      </card>
+      <br>
+    </ng-container>
+  </small-screen>
+  <no-record-found *ngIf="employees.length ==0"></no-record-found>
+  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+    [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions" (page)="pagingClicked($event)">
+  </mat-paginator>
+
+</card>

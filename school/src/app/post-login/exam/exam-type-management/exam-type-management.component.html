@@ -1,0 +1,40 @@
+<responsive colGap="50px">
+    <div fxFlex="30">
+        <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" mat-raised-button
+            matTooltipShowDelay="100" class="btn" matTooltipHideDelay="100">
+            <mat-icon>developer_board</mat-icon> Add New Exam Type
+        </button>
+    </div>
+    <div fxFlex>
+        <card-bottom [form]="searchForm" #searchCard [hidden]="!showListPage" [title]="'Search Exam Type'">
+            <card [header]="false">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+                    <dynamic-form [form]="searchForm" [fields]="searchConfig"></dynamic-form>
+                    <form-buttons [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()"></form-buttons>
+                </form>
+            </card>
+        </card-bottom>
+    </div>
+</responsive>
+
+<responsive>
+    <div>
+        <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" mat-raised-button
+            class="btn" appToolTip="'Go back to Exam Type List'" matTooltipShowDelay="100" matTooltipHideDelay="100">
+            <mat-icon>keyboard_return</mat-icon> Back to Exam Type List
+        </button>
+    </div>
+</responsive>
+<br><br>
+
+<app-new-exam-type *ngIf="showAddChangePage || showViewPage" [changeModeId]="Id" [isViewMode]="showViewPage"
+    (onSaveSuccess)="onSaveSuccess($event)"></app-new-exam-type>
+<app-exam-type-list [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+    (editButtonEvent)="editButtonEvent($event)" (deleteButtonEvent)="deleteButtonEvent($event)"></app-exam-type-list>
+
+<p>
+    <button *ngIf="showDeleteButton && showViewPage" mat-raised-button class="delete-button padding" type="button"
+        (click)="deleteExamTypePermanently()">
+        <mat-icon>delete_forever</mat-icon> Delete And Save
+    </button>
+</p>

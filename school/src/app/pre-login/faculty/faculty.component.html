@@ -1,0 +1,36 @@
+<app-carousel [proportion]="30" [slides]="slides"></app-carousel>
+<br><br>
+<div class="public-quote center">
+    "You don’t have to be great to get started, but you have to get started to be great."
+</div>
+<br><br><br><br><br><br>
+<fancy-box theme="theme3" icon="people">
+    <div title>
+        Certified Faculty
+    </div>
+    <div content class="line-height justify">
+        <p>
+            The school has on its rolls qualified and committed staff.
+            At Demo School Branch, the teachers- the jewels of the school are ever
+            improving personalities.They are innovative and interactive in their teaching.
+        </p>
+        <p>
+            We believe that the teachers are who gives you something to take home to think about besides homework. Our
+            teaching is not jsut limited to books.
+        </p>
+        <p>
+            Teacher at Demo School Branch motivate the students and teach them how
+            to work together. Everyone who remembers his own education remembers teachers, not methods and techniques.
+            The teachers are the
+            heart of our educational system.
+        </p>
+        <br><br>
+    </div>
+</fancy-box>
+
+<div *ngIf="isLoading">
+    <app-loader></app-loader>
+    <br><br>
+</div>
+
+<app-what-we-offer></app-what-we-offer>

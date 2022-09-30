@@ -1,0 +1,25 @@
+.ratingTr{
+    padding: 10px 2px 10px 5px;
+}
+
+.dateRangeTd{
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.subjectRating{
+    padding: 8px 12px 8px 8px;
+    border-width: 0px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #7777774d;
+    min-width: 120px;
+}
+
+.evenRow{
+    background-color: whitesmoke;
+}

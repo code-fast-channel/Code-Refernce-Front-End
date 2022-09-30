@@ -1,0 +1,113 @@
+<card [loading]="isLoading" [title]="'Class List'"
+  [subTitle]="'Manage classes for students and teachers'" (refresh)="getList()">
+  <large-screen>
+    <table class="table" matSort (matSortChange)="sortClicked($event)">
+      <thead class="thead">
+        <tr>
+          <th class="sr" colspan="2">#</th>
+          <th matRipple mat-sort-header="basicInfo.className">
+            Class Name
+            <mat-icon>ballot</mat-icon>
+          </th>
+          <th matRipple mat-sort-header="basicInfo.classFee">
+            Class Basic Fee
+            <mat-icon>money</mat-icon>
+          </th>
+          <th matRipple>
+            Sections
+            <mat-icon>menu_book</mat-icon>
+          </th>
+          <th class="action">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr" *ngFor="let class of classs; let idx = index">
+          <td class="sr-col">{{ (paging.pageIndex *  paging.pageSize) + idx+1}}</td>
+          <td> </td>
+          <td>{{class.basicInfo.className}}</td>
+          <td>{{class.basicInfo.classFee | currency:'INR'}}</td>
+          <td>
+            <span *ngFor="let section of class.basicInfo.classSection; let last = last;">
+                {{section | masterData : 'classsections'}} {{last ? '': ','}}
+            </span>
+          </td>
+          <td class="rt">
+            <button mat-icon-button appToolTip="'View Class'" class="icon-view" (click)="viewClicked(class._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Class'" class="icon-edit"
+              (click)="editClicked(class._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Class'" class="icon-delete"
+              (click)="deleteClicked(class._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </large-screen>
+
+  <small-screen class="default-font">
+    <ng-container *ngFor="let class of classs; let idx = index; let odd = odd;">
+      <card [childCard]="true" [header]="false">
+        <row gap="2px">
+          <div fxFlex="30%">
+            <b># {{ (paging.pageIndex * paging.pageSize) + idx+1}}</b>
+          </div>
+          <div fxFlex class="rt">
+            <button mat-icon-button appToolTip="'View Class'" class="big-icon-view" (click)="viewClicked(class._id)">
+              <mat-icon mat-icon-button>visibility</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Edit Class'" class="big-icon-edit"
+              (click)="editClicked(class._id)">
+              <mat-icon mat-icon-button>edit</mat-icon>
+            </button>
+            <button *ngIf="editPermissions" mat-icon-button appToolTip="'Delete Class'" class="big-icon-delete"
+              (click)="deleteClicked(class._id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
+        </row>
+        <br>
+        <row>
+          <div fxFlex="60%">
+            <div class="bold">
+              <mat-icon>ballot</mat-icon>Class Name
+            </div>
+            <div class="small-screen-data">
+              {{class.basicInfo.className}}
+            </div>
+            <br>
+            <div class="bold">
+              <mat-icon>money</mat-icon>Basic fee
+            </div>
+            <div class="small-screen-data">
+              {{class.basicInfo.classFee | currency:'INR'}}
+            </div>
+          </div>
+          <div fxFlex>
+            <div class="bold">
+              Sections
+            </div>
+            <div>
+              <ol style="list-style-type: decimal;">
+                <li *ngFor="let section of class.basicInfo.classSection" class="default-font">
+                  {{section | masterData : 'classsections'}}
+                </li>
+              </ol>
+            </div>
+          </div>
+        </row>
+      </card>
+      <br>
+    </ng-container>
+  </small-screen>
+  <no-record-found *ngIf="classs.length ==0"></no-record-found>
+  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+    [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions" (page)="pagingClicked($event)">
+  </mat-paginator>
+
+</card>

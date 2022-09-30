@@ -1,0 +1,52 @@
+.image-div{
+    width: 100%;
+    text-align: center;
+}
+
+.pic{
+    min-width: 180px;    
+    min-height: 180px;
+    max-width: 180px;
+    max-height: 180px;
+    border-radius: 100%;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #eaeaea;
+    -webkit-box-shadow: -1px 12px 19px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 12px 19px -8px rgba(0,0,0,0.75);
+    box-shadow: -1px 12px 19px -8px rgba(0,0,0,0.75);
+    color: black;
+}
+
+.camera-icon{
+    color: greenyellow;
+    background-color: black;
+    padding: 4px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 100%;
+    border-color: #555;
+}
+
+.compressing-msg{
+    background-color: white;
+    color: black;
+    font-size: 12px;
+}
+
+.uploading-info{
+    font-size: 14px !important;
+    color: black;
+    zoom: 100% !important;
+}
+
+.full-zoom{    
+    zoom: 100% !important;
+}
+
+.preview-Pic{
+    max-width: 400px;
+    max-height: 400px;
+    height: auto;
+    width: auto;
+}

@@ -1,0 +1,40 @@
+<responsive colGap="50px">
+    <div fxFlex="30">
+        <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" mat-raised-button
+            matTooltipShowDelay="100" class="btn" matTooltipHideDelay="100">
+            <mat-icon>android</mat-icon> Add New Role
+        </button>
+    </div>
+    <div fxFlex>
+        <card-bottom [form]="searchForm" #searchCard [hidden]="!showListPage" [title]="'Search Role'">
+            <card [header]="false">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+                    <dynamic-form [form]="searchForm" [fields]="searchConfig"></dynamic-form>
+                    <form-buttons [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()"></form-buttons>
+                </form>
+            </card>
+        </card-bottom>
+    </div>
+</responsive>
+
+<responsive>
+    <div>
+        <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" mat-raised-button
+            class="btn" appToolTip="'Go back to Role List'" matTooltipShowDelay="100" matTooltipHideDelay="100">
+            <mat-icon>keyboard_return</mat-icon> Back to Role List
+        </button>
+    </div>
+</responsive>
+<br><br>
+
+<app-new-role *ngIf="showAddChangePage || showViewPage" [changeModeId]="Id" [isViewMode]="showViewPage"
+    (onSaveSuccess)="onSaveSuccess($event)"></app-new-role>
+<app-role-list [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+    (editButtonEvent)="editButtonEvent($event)" (deleteButtonEvent)="deleteButtonEvent($event)"></app-role-list>
+
+<p>
+    <button *ngIf="showDeleteButton && showViewPage" mat-raised-button class="delete-button padding" type="button"
+        (click)="deleteRolePermanently()">
+        <mat-icon>delete_forever</mat-icon> Delete And Save
+    </button>
+</p>

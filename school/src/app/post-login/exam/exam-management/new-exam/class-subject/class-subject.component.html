@@ -1,0 +1,33 @@
+<dynamic-form [form]="form" [fields]="fieldsConfig"></dynamic-form>
+<div>
+    <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+        <ng-container *ngFor="let subject of this.form['controls'].subject['controls']; let idxSubject = index;">
+            <mat-expansion-panel class="no-shadow">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <smart-div class="negative-margin" [form]="subject">
+                            <mat-icon>menu_book</mat-icon>
+                            {{ subject.controls['subjectId']?.value | subject}}
+                            <i [ngClass]="{'blink-animate': subject.controls['examDate']?.value | isToday}"
+                                class="color-black">{{subject.controls['examDate']?.value | date : 'fullDate'}}</i>
+                        </smart-div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form-time-range [form]="subject" [isViewMode]="isViewMode" [fromLabel]="'Start Time'"
+                    [toLabel]="'End Time'" [Required]="true"
+                    [initialFormValues]="initialFormValues?.subject[idxSubject]">
+                </form-time-range>
+
+                <exam-basic-info [form]="subject" [isViewMode]="isViewMode" [classObject]="classObject"
+                    [subjectId]="subject.controls['subjectId']?.value"
+                    [initialFormValues]="initialFormValues?.subject[idxSubject]">
+                </exam-basic-info>
+                    <app-subject-exam-result [form]="subject.controls['sections']" [examId]="examId"
+                        [isViewMode]="isViewMode" *ngIf="isEditMode" [subject]="subject"
+                        [initialFormValues]="initialFormValues?.subject[idxSubject].sections"
+                        [studentDetails]="initialFormValues?.studentDetails">
+                    </app-subject-exam-result>
+            </mat-expansion-panel>
+        </ng-container>
+    </mat-accordion>
+</div>

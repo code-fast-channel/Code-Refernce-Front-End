@@ -1,0 +1,16 @@
+<ng-container *ngIf="topMargin">
+  <br><br>
+</ng-container>
+
+<row>
+  <button fxFlex mat-raised-button class="btn-submit padding generic-buttons bounce-in-animate" type="submit">
+    <mat-icon class="save-btn-icon">{{iconSave}}</mat-icon> {{saveLabel}}
+  </button>
+  <button *ngIf="resetButtonNeeded" fxFlex mat-raised-button
+    class="btn-cancel padding generic-buttons bounce-in-animate" type="button" (click)="resetFormClicked()">
+    <mat-icon>restore_page</mat-icon> {{resetLabel}}
+  </button>
+</row>
+<card *ngIf="masterData.showJson" [header]="false">
+  <pre>{{this.form?.getRawValue() |json}}</pre>
+</card>

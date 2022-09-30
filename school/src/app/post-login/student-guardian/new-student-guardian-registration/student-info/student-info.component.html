@@ -1,0 +1,117 @@
+<card [childCard]="true" [refreshButton]="false"
+    [title]="'Student- '+student.controls['basicInfo'].controls['firstName']?.value +' '+ student.controls['basicInfo'].controls['lastName']?.value"
+    [subTitle]="studentSubTitle" [open]="student.controls['_id'].value['$oid'] === focusId">
+    <ng-content></ng-content>
+    <responsive>
+        <div fxFlex class="center">
+            <form-profile-pic fxLayoutAlign="end" [form]="student" [isViewMode]="isViewMode">
+            </form-profile-pic>
+            <ng-container *ngIf="changeModeId || isViewMode">
+                <br>
+                <link-button icon="star" title="View Ratings" (click)="viewStudentRatings()"></link-button>
+                <br>
+            </ng-container>
+        </div>
+        <div fxFlex="2 2 auto">
+            <app-ddl-status [form]="student" [isViewMode]="isViewMode"
+                [value]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent].status">
+            </app-ddl-status>
+            <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="student.controls['basicInfo']" [icon]="'face'">
+                                {{student.controls['basicInfo'].controls['firstName']?.value }} Basic Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-user-basic-info [form]="student.controls['basicInfo']" [isViewMode]="isViewMode" minAge="2"
+                        [initialFormValues]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent]. basicInfo">
+                    </form-user-basic-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow" *ngIf="canSeeSensitiveInfo">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="student.controls['credentialInfo']" [icon]="'security'">
+                                {{student.controls['basicInfo'].controls['firstName']?.value }} Credential Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-user-credentials [form]="student.controls['credentialInfo']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent].credentialInfo">
+                    </form-user-credentials>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="student.controls['academicInfo']" [icon]="'school'">
+                                {{student.controls['basicInfo'].controls['firstName']?.value }} Academic Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-student-academic-info [form]="student.controls['academicInfo']"
+                        [isViewMode]="isViewMode || isComingFromMyProfile"
+                        [initialFormValues]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent].academicInfo">
+                    </app-student-academic-info>
+
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="student.controls['transportInfo']" [icon]="'directions_bus'">
+                                {{student.controls['basicInfo'].controls['firstName']?.value }} Transport Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <app-route-ddl [form]="student.controls['transportInfo']"
+                        [isViewMode]="isViewMode || isComingFromMyProfile"
+                        [initialFormValues]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent].transportInfo">
+                    </app-route-ddl>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="student.controls['contactInfo']" [icon]="'contact_phone'">
+                                {{student.controls['basicInfo'].controls['firstName']?.value }} Contact Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-contact-info [form]="student.controls['contactInfo']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent].contactInfo">
+                    </form-contact-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="student.controls['medicalInfo']" [icon]="'local_hospital'">
+                                {{student.controls['basicInfo'].controls['firstName']?.value }} Medical Details
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-user-medical-info [form]="student.controls['medicalInfo']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent].medicalInfo">
+                    </form-user-medical-info>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <smart-div [form]="student.controls['governmentIds']" [icon]="'local_activity'">
+                                {{student.controls['basicInfo'].controls['firstName']?.value }} Government Ids
+                            </smart-div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <form-user-government-ids [form]="student.controls['governmentIds']" [isViewMode]="isViewMode"
+                        [initialFormValues]="initialFormValues?.students.length > idxStudent && initialFormValues?.students[idxStudent].governmentIds">
+                    </form-user-government-ids>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </responsive>
+</card>
+
+<card *ngIf="isViewRating" title="Student Ratings" [popUpMode]="true" [refreshButton]="false" (deleteCardEvent)="isViewRating = false">
+    <user-small-pic cardHeader [userId]="selectedStudentId"></user-small-pic>
+    <app-student-whole-rating [studentId]="selectedStudentId">
+    </app-student-whole-rating>
+</card>

@@ -1,0 +1,41 @@
+<responsive colGap="50px">
+    <div fxFlex="30">
+        <button type="button" *ngIf="showListPage && editPermissions" (click)="addNewClick()" mat-raised-button
+            class="btn" matTooltipShowDelay="100" matTooltipHideDelay="100">
+            <mat-icon>person_add</mat-icon> Add New Employee
+        </button>
+    </div>
+    <div fxFlex>
+        <card-bottom [form]="searchForm" #searchCard [hidden]="!showListPage" [title]="'Search Employee'">
+            <card [header]="false">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearchClick()">
+                    <dynamic-form [form]="searchForm" [fields]="searchConfig"></dynamic-form>
+                    <form-buttons [form]="searchForm" [isSearchForm]="true" (onReset)="onSearchClick()"></form-buttons>
+                </form>
+            </card>
+        </card-bottom>
+    </div>
+</responsive>
+
+<responsive>
+    <div>
+        <button type="button" *ngIf="showAddChangePage || showViewPage" (click)="backToListClick()" class="btn"
+            mat-raised-button appToolTip="'Go back to Employee List'" matTooltipShowDelay="100"
+            matTooltipHideDelay="100">
+            <mat-icon>keyboard_return</mat-icon> Back to Employee List
+        </button>
+    </div>
+</responsive>
+<br><br>
+
+<app-new-employee *ngIf="showAddChangePage || showViewPage" [changeModeId]="Id" [isViewMode]="showViewPage"
+    (onSaveSuccess)="onSaveSuccess($event)"></app-new-employee>
+<app-employee-list [hidden]="!showListPage" (viewButtonEvent)="viewButtonEvent($event)"
+    (deleteButtonEvent)="deleteButtonEvent($event)" (editButtonEvent)="editButtonEvent($event)"></app-employee-list>
+
+<p>
+    <button *ngIf="showDeleteButton && showViewPage" mat-raised-button class="delete-button padding" type="button"
+        (click)="deleteEmployeePermanently()">
+        <mat-icon>delete_forever</mat-icon> Delete And Save
+    </button>
+</p>

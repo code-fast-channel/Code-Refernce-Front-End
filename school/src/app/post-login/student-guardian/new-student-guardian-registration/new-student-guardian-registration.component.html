@@ -1,0 +1,108 @@
+<div class="gridview-label">
+  {{title}}
+</div>
+<card [loading]="isLoading" [header]="false" [title]="title" [subTitle]="subTitle" [cardButtons]="false">
+  <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)">
+    <mat-tab-group [backgroundColor]="'primary'" [@.disabled]="true" [(selectedIndex)]="tabSelectedIndex">
+      <mat-tab *ngIf="this.mainForm['controls'].students">
+        <ng-template mat-tab-label>
+          <smart-div highlighPass="true" [form]="this.mainForm['controls'].students">
+            <mat-icon class="example-tab-icon" matBadgePosition="before" matBadgeColor="default" matBadgeOverlap="false"
+              [matBadge]="noOfActiveStudent">emoji_people</mat-icon>
+          </smart-div>
+          <large-screen>Children</large-screen>
+        </ng-template>
+        <br>
+        <div formArrayName="students">
+          <div class="dynamicSection"
+            *ngFor="let student of this.mainForm['controls'].students['controls']; let idxStudent = index">
+            <div formGroupName="{{idxStudent}}">
+              <student-info [isComingFromMyProfile]="isComingFromMyProfile" [student]="student" [idxStudent]="idxStudent" [initialFormValues]="initialFormValues"
+               [studentSubTitle]="studentSubTitle" [focusId]="focusId" [changeModeId]="changeModeId" [isViewMode]="isViewMode"
+               [canSeeSensitiveInfo]="canSeeSensitiveInfo" [editPermissions]="editPermissions">
+                  <div class="rt" *ngIf="!isViewMode && noOfActiveStudent > 1">
+                      <button type="button" class="delete-button" mat-raised-button
+                        (click)="deleteStudentClicked(idxStudent, student.controls['status'])">
+                        <mat-icon matSuffix>delete_forever</mat-icon>
+                      </button>
+                    </div>
+              </student-info>
+            </div>
+          </div>
+        </div>
+        <p *ngIf="!isViewMode">
+          <link-button title="Add more students"  (click)="addStudentClicked()"
+           *ngIf="this.mainForm['controls'].students['controls'].length < 5"></link-button>
+        </p>
+      </mat-tab>
+      <mat-tab *ngIf="this.mainForm['controls'].guardians">
+        <ng-template mat-tab-label>
+          <smart-div highlighPass="true" [form]="this.mainForm['controls'].guardians">
+            <mat-icon class="example-tab-icon" matBadgePosition="before" matBadgeColor="default" matBadgeOverlap="false"
+              [matBadge]="noOfActiveGuardian">wc</mat-icon>
+          </smart-div>
+          <large-screen>Guardian</large-screen>
+        </ng-template>
+        <br>
+        <div formArrayName="guardians">
+          <div class="dynamicSection"
+            *ngFor="let guardian of this.mainForm['controls'].guardians['controls']; let idxGuardian = index;">
+            <div formGroupName="{{idxGuardian}}">
+              <guardian-info [isComingFromMyProfile]="isComingFromMyProfile" [guardian]="guardian" [idxGuardian]="idxGuardian" [initialFormValues]="initialFormValues"
+              [guardianSubTitle]="guardianSubTitle" [focusId]="focusId" [changeModeId]="changeModeId" [isViewMode]="isViewMode"
+              [canSeeSensitiveInfo]="canSeeSensitiveInfo" [editPermissions]="editPermissions">
+                  <div class="rt" *ngIf="!isViewMode && noOfActiveGuardian > 1">
+                      <button type="button" class="delete-button" mat-raised-button
+                        (click)="deleteGuardianClicked(idxGuardian, guardian.controls['status'])">
+                        <mat-icon matSuffix>delete_forever</mat-icon>
+                      </button>
+                    </div>
+              </guardian-info>
+            </div>
+          </div>
+        </div>
+        <p *ngIf="!isViewMode">
+          <link-button title="Add more guardians" (click)="addGuardianClicked()"
+          *ngIf="this.mainForm['controls'].guardians['controls'].length < 10"></link-button>
+        </p>
+      </mat-tab>
+      <mat-tab *ngIf="this.mainForm['controls'].address">
+        <ng-template mat-tab-label>
+          <smart-div highlighPass="true" [form]="this.mainForm['controls'].address">
+            <mat-icon>room</mat-icon>
+          </smart-div>
+          <large-screen>Permanent Address</large-screen>
+        </ng-template>
+        <div class="dynamicSection">
+          <br><br>
+          <app-section [title]="'Permanent Address Details'">
+            <br>
+            <form-address-info [form]="this.mainForm['controls'].address"
+              [initialFormValues]="initialFormValues?.address" [isViewMode]="isViewMode">
+            </form-address-info>
+          </app-section>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <responsive [gap]="'5%'" *ngIf="!isViewMode && false" class="formStatus">
+      <div>
+        <smart-div highlighPass="true" [form]="this.mainForm['controls'].students" [isFormStatus]="true">
+          Children/student infromation
+        </smart-div>
+      </div>
+      <div>
+        <smart-div highlighPass="true" [form]="this.mainForm['controls'].guardians" [isFormStatus]="true">
+          Guardian infromation
+        </smart-div>
+      </div>
+      <div>
+        <smart-div highlighPass="true" [form]="this.mainForm['controls'].address" [isFormStatus]="true">
+          Permanent address infromation
+        </smart-div>
+      </div>
+      <div class="fill-space"></div>
+    </responsive>
+    <form-buttons *ngIf="editPermissions && !isViewMode" [form]="mainForm" [isChangeMode]="changeModeId"></form-buttons>
+  </form>
+  <br>
+</card>

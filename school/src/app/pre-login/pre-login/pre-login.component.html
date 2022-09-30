@@ -1,0 +1,29 @@
+<small-screen [hidden]="!showShideNav">
+    <row>
+        <div fxFlex="300px" class="sideNav sideMenuColors">
+            <app-pre-login-menu (toggleSideMenu)="showShideNav = false"></app-pre-login-menu>
+            <br><br><br><br>
+        </div>
+        <div fxFlex (click)="showShideNav = false" class="closeSideNavDiv">
+        </div>
+    </row>
+</small-screen>
+
+<div>
+    <app-pre-login-header>
+        <small-screen>
+            <mat-icon style="font-size: 30px;" (click)="showShideNav = true">menu</mat-icon>
+        </small-screen>
+    </app-pre-login-header>
+    <large-screen>
+        <div class="fixedHeader preLoginHeader">
+            <app-pre-login-menu></app-pre-login-menu>
+        </div>
+    </large-screen>
+
+    <div class="preLoginContent contentBgImage">
+        <router-outlet name="preLoginOutlet">
+        </router-outlet>
+    </div>
+    <app-pre-login-footer></app-pre-login-footer>
+</div>

@@ -1,0 +1,38 @@
+<card [loading]="isLoading" [childCard]="true" [header]="false">
+  <app-calendar (selectedDate)="dateClicked($event)">
+    <div class="agenda-box">
+      <div>
+        <b>Agenda </b><span class="agenda-date">for <b>{{dateValue | date:'fullDate'}}</b></span>
+        <hr>
+      </div>
+      <no-record-found *ngIf="events?.length==0"></no-record-found>
+      <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+        <mat-expansion-panel class="no-shadow" *ngFor="let event of events; let idx = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span>{{idx+1}}. {{event.eventName}}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            From <b>{{event.fromDate | date}}</b> to <b>{{event.toDate | date}}</b>
+          </div>
+          <br>
+          <div>
+            {{event.description}}
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </app-calendar>
+</card>
+
+<br><br>
+
+<responsive>
+  <div fxFlex>
+    
+  </div>
+  <div fxFlex>
+    <holiday-calendar></holiday-calendar>
+  </div>
+</responsive>

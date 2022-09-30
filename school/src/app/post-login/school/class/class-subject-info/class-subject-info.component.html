@@ -1,0 +1,3 @@
+<app-subject-teacher-ddl *ngIf="!isLoading" [form]="form" [initialFormValues]="initialFormValues" [isViewMode]="isViewMode"></app-subject-teacher-ddl>
+<dynamic-form *ngIf="!isLoading" [form]="form" [fields]="fieldsConfig" [addEmptyDiv]="false"></dynamic-form>
+<app-subject-timings *ngIf="!isLoading" [form]="form" [initialFormValues]="initialFormValues" [isViewMode]="isViewMode"></app-subject-timings>

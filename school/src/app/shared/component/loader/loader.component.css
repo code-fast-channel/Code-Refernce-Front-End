@@ -1,0 +1,49 @@
+.bubbles div {
+	width: 7px;
+	height: 7px;
+	position: absolute;
+	background-color:var(--loader-bubble-color); /* #8dff7eaf; */
+	border-radius: 50%;
+    animation: move 4s infinite cubic-bezier(.2,.64,.81,.23);
+    text-align: center;
+    font-size: 100px;    
+  }
+  .bubbles div:nth-child(2) {
+    animation-delay: 150ms;
+    background-color: var(--loader-bubble-color); /* #ffb27eaf; */
+    color: #ffb27eaf;
+  }
+  .bubbles div:nth-child(3) {
+    animation-delay: 300ms;
+    background-color: var(--loader-bubble-color); /* #7ea0ffaf; */
+    color: #7ea0ffaf;
+  }
+  .bubbles div:nth-child(4) {
+    animation-delay: 450ms;
+    background-color: var(--loader-bubble-color); /* #b7dd786e; */
+    color: #b7dd786e;
+  }
+  .bubbles div:nth-child(5) {
+    animation-delay: 600ms;
+    background-color: var(--loader-bubble-color); /* #ff7ee9af; */
+    color: #ff7ee9af;
+  }
+  .bubbles div:nth-child(6) {
+    animation-delay: 750ms;
+    background-color: var(--loader-bubble-color); /* #98139caf; */
+    color: #98139caf;
+  }
+  .bubbles div:nth-child(7) {
+    animation-delay: 900ms;
+    background-color: var(--loader-bubble-color); /* #afe2deaf; */
+    color: #afe2deaf;
+  }
+  @keyframes move {
+	0% {left: 0%;}
+	50% {left:50%;}
+	100% {left:100%;}
+  }
+
+  .relative{
+      position: relative;
+  }

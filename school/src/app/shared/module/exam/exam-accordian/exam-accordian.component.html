@@ -1,0 +1,34 @@
+
+<mat-accordion *ngIf="schoolExam" hideToggle="true" [multi]="masterData.expendMultiple">
+    <mat-expansion-panel class="no-shadow" *ngFor="let classes of schoolExam; let idx = index">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <span>{{idx+1}}. Exam of:- {{classes.classId | class }}</span>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+                <ng-container *ngFor="let exam of classes.data;">
+                        <div style="font-size: 12px; text-align: left;">
+                            <p class="bold">
+                                <mat-icon [ngClass]="{'blink-animate': exam.examDate | isToday}">today</mat-icon> {{exam.examDate | date : 'fullDate'}}
+                            </p>
+                            <row>
+                                <div fxFlex>
+                                    <mat-icon>access_time</mat-icon> {{exam.fromTime | time}}
+                                </div>
+                                <div fxFlex>
+                                    <mat-icon>access_time</mat-icon> {{exam.toTime | time}}
+                                </div>
+                            </row>
+                            <row>
+                                <div fxFlex>
+                                    <mat-icon>menu_book</mat-icon> {{exam.subjectId | subject }}
+                                </div>
+                                <div fxFlex>
+                                    <mat-icon>meeting_room</mat-icon> {{exam.room}}
+                                </div>
+                            </row>
+                        </div>
+                        <div class="separator"></div>
+                </ng-container>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,139 @@
+<div class="dashboard-container">
+<ng-container *ngIf="!isLoading">
+    <responsive [gap]="'20%'" [colGap]="'14%'">
+        <dashboard-box fxFlex [open]="true" [icon]="'group_work'" [title]="'Upcoming events in next 10 days'"
+            [bgColor]="'orangered'" [color]="'white'" >
+            <mat-accordion hideToggle="true" [multi]="masterData.expendMultiple">
+                <mat-expansion-panel class="no-shadow" *ngFor="let event of schoolEvent; let idx = index">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <span>{{idx+1}}. {{event.eventName}}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div style="font-size: 12px; text-align: left;">
+                        From <b>{{event.fromDate | date}}</b> to <b>{{event.toDate | date}}</b>
+                        <br>
+                        {{event.description}}
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <no-record-found *ngIf="schoolEvent?.length == 0"></no-record-found>
+        </dashboard-box>
+        <dashboard-box fxFlex [open]="true" [icon]="'local_library'" [title]="'Upcoming Exams in next 10 days'" [bgColor]="'#ff9999'"
+            [color]="'#333'" >
+            <exam-accordian [schoolExam]="schoolExam"></exam-accordian>
+            <no-record-found *ngIf="schoolExam?.length == 0"></no-record-found>
+        </dashboard-box>
+    </responsive>
+    <div class="box-row-gap"></div>
+    <responsive [gap]="'20%'" [colGap]="'14%'" class="center-boxes">
+        <overall-attendance-count-chart fxFlex [open]="false" [eyeButton]="editPermissions"
+            [title]="'Today attendance status'" [attendanceRawData]="attendanceData">
+        </overall-attendance-count-chart>
+        <overall-rating-count-chart fxFlex [open]="false" [title]="'Current rating status'"
+            [ratingRawData]="studentRatingData">
+        </overall-rating-count-chart>
+    </responsive>
+    <div class="box-row-gap"></div>
+    <responsive [gap]="'20%'" [colGap]="'14%'" class="center-boxes">
+        <dashboard-box fxFlex [open]="false" [icon]="'person'" [title]="'Total number of Employees'"
+            [value]="employeeCount.total" [bgColor]="'#319E1C'" [color]="'white'" 
+            [bgImage]="'bg-call-center'">
+            <div *ngIf="editPermissions">
+                <mat-icon class="pointer" mat-icon-button (click)="countCardViewClicked('employee')">
+                    visibility
+                </mat-icon>
+            </div>
+            <div class="countDetails" fxLayout="row">
+                <div fxFlex>
+                    Male
+                    <br> {{employeeCount.maleCount}}
+                </div>
+                <div fxFlex>
+                    Female
+                    <br> {{employeeCount.femaleCount}}
+                </div>
+                <div fxFlex>
+                    Others
+                    <br> {{employeeCount.othersCount}}
+                </div>
+            </div>
+            <br><br>
+            <div>
+                <app-chart [chartLabels]="['Male', 'Female', 'Others']"
+                    [chartData]="[employeeCount.maleCount, employeeCount.femaleCount, employeeCount.othersCount]">
+                </app-chart>
+            </div>
+        </dashboard-box>
+        <dashboard-box fxFlex [open]="false" [icon]="'child_care'" [title]="'Total number of Students'"
+            [value]="studentCount.total" [bgColor]="'#ff00e0'" [color]="'white'" 
+            [bgImage]="'bg-falling-kids'">
+            <div *ngIf="editPermissions">
+                <mat-icon class="pointer" mat-icon-button (click)="countCardViewClicked('student')">
+                    visibility
+                </mat-icon>
+            </div>
+            <div class="countDetails" fxLayout="row">
+                <div fxFlex>
+                    Male
+                    <br> {{studentCount.maleCount}}
+                </div>
+                <div fxFlex>
+                    Female
+                    <br> {{studentCount.femaleCount}}
+                </div>
+                <div fxFlex>
+                    Others
+                    <br> {{studentCount.othersCount}}
+                </div>
+            </div>
+            <br><br>
+            <div>
+                <app-chart [chartLabels]="['Male', 'Female', 'Others']"
+                    [chartData]="[studentCount.maleCount, studentCount.femaleCount, studentCount.othersCount]">
+                </app-chart>
+            </div>
+        </dashboard-box>
+    </responsive>
+    <div class="box-row-gap"></div>
+    <responsive [gap]="'20%'" [colGap]="'14%'" class="center-boxes">
+        <dashboard-box fxFlex [open]="false" [icon]="'wc'" [title]="'Total number of Guardians'"
+            [value]="guardianCount.total" [bgColor]="'#2D4059'" [color]="'white'"  [bgImage]="'bg-yee'">
+            <div *ngIf="editPermissions">
+                <mat-icon class="pointer" mat-icon-button (click)="countCardViewClicked('guardian')">
+                    visibility
+                </mat-icon>
+            </div>
+            <div class="countDetails" fxLayout="row">
+                <div fxFlex>
+                    Male
+                    <br> {{guardianCount.maleCount}}
+                </div>
+                <div fxFlex>
+                    Female
+                    <br> {{guardianCount.femaleCount}}
+                </div>
+                <div fxFlex>
+                    Others
+                    <br> {{guardianCount.othersCount}}
+                </div>
+            </div>
+            <br><br>
+            <div>
+                <app-chart [chartLabels]="['Male', 'Female', 'Others']"
+                    [chartData]="[guardianCount.maleCount, guardianCount.femaleCount, guardianCount.othersCount]">
+                </app-chart>
+            </div>
+        </dashboard-box>        
+        <div fxFlex></div>
+    </responsive>
+</ng-container>
+</div>
+
+<div *ngIf="isLoading">
+    <br><br>
+    <app-loader></app-loader>
+    <br>
+    <img class="loadingImage"
+        src="https://cdn.dribbble.com/users/1047147/screenshots/3304587/school-trips-icons-dribbble-trimmed_1.gif">
+</div>

@@ -1,0 +1,159 @@
+.mat-card{
+  padding: 0px !important;
+}
+
+.noBorder{
+  border-width: 0px !important;
+}
+
+.card{    
+     overflow: auto;
+     position: relative;
+ }
+
+ .card-open-Header{
+  padding: 16px;
+  margin: 0px !important;
+  color: black;
+  background-color: white;
+}
+
+.card-close-Header{
+  padding: 16px;
+  margin: 0px !important;    
+}
+
+ .child-card{ 
+  box-shadow: 0px 0px 0px 0px;
+  border-style: solid solid solid solid;
+  border-color: #b0b0b0;
+  border-width: 1px;
+  margin: 2%;
+ }
+
+ .child-card:hover{   
+  border-color: rgba(47, 79, 79, 0.829);
+ }
+
+.cursor{
+  cursor: pointer;
+}
+
+ .low-opacity{
+    opacity: 0.6;
+  }
+
+  .header-title{
+    margin-left: -10px;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .title{
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .sub-Title{
+    font-size: 12px;
+    padding-left: 2px;
+  }
+
+  .child-card-title{
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .child-card-sub-Title{
+    font-size: 11px;
+    padding-left: 2px;
+  }
+
+  .child-card-open-header{
+    background-color: white;
+    color: #333;
+  }
+
+  .child-card-close-header{
+    background-color: #555;
+    color: whitesmoke;
+    opacity: 0.7;
+  }
+
+.card-Header mat-icon{
+  font-size: 22px;
+  opacity: 0.5;
+}
+
+.card-Header mat-icon:hover{  
+  opacity: 0.9;
+  transition: font-size 0.1s linear;
+}
+
+.close{
+    border-style: solid;
+    border-color: var(--main-color);
+    background-color: darkslategrey;
+    border-width: 0px 0px 0px 0px;
+    color: white;
+}
+  
+.delete-Card{
+  display: none;
+}
+
+.card-content{ 
+  padding: 5px 0px 0px 0px;
+}
+
+.card-data{
+  padding: 16px;
+  background-color: white;
+}
+
+.popUp{
+  z-index: 999 !important;
+	position: fixed !important;
+	top: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+  right: 0 !important;  
+  padding: 0% 4% !important;
+  background-color: rgba(0, 0, 0, 0.918) !important;
+}
+
+.popUpContent{
+  overflow: auto;
+  height: 85vh !important;
+}
+
+.loading-content{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.card-footer {
+	padding: 30px 0px 0px 0px
+}
+
+.activeButton{
+  color: darkorange;
+  font-size: 28px;
+}
+
+.card-disabled{
+  cursor: progress;
+  opacity: 0.4 !important;
+}
+
+.header-border{
+  border-style: solid;
+  border-width: 0px 0px 2px 0px;
+  border-color: #b0b0b0;
+}
+
+#download {
+  display: none;
+}

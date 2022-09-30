@@ -1,0 +1,79 @@
+.cardBottomScreen{
+    background-color: #000000e8;
+    z-index: 999 !important;
+}
+
+.cardBottomDiv{
+    z-index: 900 !important;
+	position: fixed !important;
+	bottom: 0 !important;
+	left: 5% !important;
+    right: 5% !important;
+    margin: 0px 8%;
+}
+
+.cardBottomTitle{
+    background-color: var(--main-color);
+    color: white;
+    padding: 10px 2px 10px 2px;
+    font-weight: bold;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--main-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.cardBottomContentDiv{
+    max-height: 80vh;
+    min-height: 10vh;
+    overflow: auto;
+    background-color: white;
+}
+
+.closeDiv{
+    left: 0;
+    right: 0;
+    position: fixed;
+    height: 100%;
+}
+
+.bottomButtonArea{
+    z-index: 900 !important;
+	position: fixed !important;
+	bottom: 0 !important;
+	left: 5% !important;
+    right: 5% !important;
+    margin: 0px;
+}
+
+.bottomButton{
+    background-color: black;
+    padding: 5px 8px 5px 8px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    color: white;
+    font-weight: normal;
+    font-size: 14px;
+    cursor: pointer;  
+    border-style: solid;
+    border-width: 4px 4px 0px 4px;  
+    border-color: var(--main-color);
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.bottomButton:hover{
+    background-color: white;
+    color: black;
+    opacity: 1;
+}
+
+.bottomButton mat-icon{
+    font-weight: bold;
+}
+
+.formHasData{
+    opacity: 1;    
+	background-color: var(--main-color);
+}

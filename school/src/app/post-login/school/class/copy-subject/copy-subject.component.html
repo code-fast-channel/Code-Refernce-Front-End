@@ -1,0 +1,19 @@
+<mat-radio-group fxLayout="column" [(ngModel)]="fromSectionId">
+    <ng-container *ngFor="let secId of classSections">
+        <mat-radio-button *ngIf="secId != sectionId" class="radio-buttons pointer" color="primary" fxFlex [value]="secId"
+            (click)="copyClicked(secId)">
+            From Section {{secId | masterData : 'classsections'}}
+            -->
+            To Section {{sectionId | masterData : 'classsections'}}
+        </mat-radio-button>
+    </ng-container>
+</mat-radio-group>
+<br>
+<mat-divider></mat-divider>
+<br>
+<row>
+    <button color="primary" mat-raised-button *ngIf="fromSectionId" type="button" (click)="proceed()">
+        <mat-icon>file_copy</mat-icon> Proceed
+    </button>
+    <button type="button" mat-raised-button  (click)="dontCopyClicked()">Don't Copy</button>
+</row>

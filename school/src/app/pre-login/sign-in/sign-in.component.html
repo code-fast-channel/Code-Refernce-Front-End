@@ -1,0 +1,13 @@
+<br><br><br><br>
+<row>
+  <div fxFlex></div>
+  <card [icon]="'lock'" [title]="'Login'" [subTitle]="'Please enter your Login Id and Password.'"
+    [bgImage]="'bg-google-phone'" [loading]="_isLoading" [cardButtons]="false" fxFlex.gt-sm="40%" fxFlex.sm="60%"
+    fxFlex="80%">
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit($event)">
+      <dynamic-form [onlyColumn]="true" [form]="mainForm" [fields]="fieldsConfig" [addEmptyDiv]="false"></dynamic-form>
+      <form-buttons [form]="mainForm" [iconSave]="'vpn_key'" [saveLabel]="'Login'"></form-buttons>
+    </form>
+  </card>
+  <div fxFlex></div>
+</row>
